@@ -1,30 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const LinguiMobile());
-}
-
-class LinguiMobile extends StatelessWidget {
-  const LinguiMobile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lingui Mobile App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const ChatPage(),
-    );
-    throw UnimplementedError();
-  }
-  
-  
-}
-
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  final String discussionId;
+
+  const ChatPage({super.key, required this.discussionId});
 
   @override
   ChatPageState createState() => ChatPageState();
