@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Message {
   String id;
   String senderId;
@@ -18,5 +20,31 @@ class Message {
     this.type = 'text',
     this.attachments,
   });
+
+  factory Message.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        'id': String id,
+        'senderId': String senderId,
+        'receiverId': String receiverId,
+        'content': String content,
+        'date': DateTime date,
+        'isRead': bool isRead,
+        'type': String type,
+        'attachments': List<String>? attachments,
+    } =>
+      Message(
+          id: id,
+          senderId: senderId,
+          receiverId: receiverId,
+          content: content,
+          date: date,
+          isRead: isRead,
+          type: type,
+          attachments: attachments,
+      ),
+      _ => throw const FormatException('Failed to load message.'),
+    };
+  }
 
 }
