@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingui_mobile/services/MessagingRequest.dart';
 
 class ChatPage extends StatefulWidget {
   final String discussionId;
@@ -12,14 +13,33 @@ class ChatPage extends StatefulWidget {
 class ChatPageState extends State<ChatPage> {
   final List<String> _messages = [];
   final TextEditingController _controller = TextEditingController();
+  late MessagingRequest _messagingRequest;
+
+  @override
+  void initState() {
+    super.initState();
+    _messagingRequest = MessagingRequest();
+    _messagingRequest.onMessageReceived = (message) {
+      setState(() {
+        _messages.add(message);
+      });
+    };
+  }
 
   void _sendMessage() {
     if(_controller.text.isNotEmpty) {
+      _messagingRequest.sendMessage(_controller.text);
       setState(() {
         _messages.add(_controller.text);
         _controller.clear();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _messagingRequest.dispose();
+    super.dispose();
   }
 
   @override

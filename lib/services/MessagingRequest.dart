@@ -1,14 +1,63 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'dart:async';
 
-Future<http.Response> sendMessage(String message) {
-  return http.post(
-    Uri.parse('http://localhost:8080'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'message': message
-    }),
-  );
+class MessagingRequest {
+
+  Timer? _reconnectTimer;
+  late WebSocketChannel channel;
+  void Function(String message)? onMessageReceived;
+
+  MessagingRequest() {
+    _connectWebSocket();
+  }
+
+  void _connectWebSocket() {
+    channel = WebSocketChannel.connect(
+      Uri.parse('ws://10.0.2.2:8080/room'),
+    );
+
+    channel!.stream.listen(
+          (message) {
+            if (onMessageReceived != null) {
+              onMessageReceived!(message);
+            }
+        // Handle incoming messages
+        print('Received message: $message');
+      },
+      onError: (error) {
+        print('WebSocket error: $error');
+        _scheduleReconnect();
+      },
+      onDone: () {
+        print('WebSocket connection closed');
+        _scheduleReconnect();
+      },
+    );
+  }
+
+  void _scheduleReconnect() {
+    if (_reconnectTimer != null) {
+      return;
+    }
+    _reconnectTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      print('Attempting to reconnect...');
+      _connectWebSocket();
+    });
+  }
+
+  void sendMessage(String message) {
+    if (message.isNotEmpty) {
+      try {
+        channel?.sink.add(message);
+      } catch (error) {
+        print('Error sending message: $error');
+      }
+    }
+  }
+
+  void dispose() {
+    channel.sink.close();
+    _reconnectTimer?.cancel();
+  }
+
 }
