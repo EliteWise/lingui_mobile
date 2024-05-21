@@ -6,14 +6,16 @@ class MessagingRequest {
   Timer? _reconnectTimer;
   late WebSocketChannel channel;
   void Function(String message)? onMessageReceived;
+  final String route;
+  final String roomId;
 
-  MessagingRequest() {
+  MessagingRequest({required this.route, required this.roomId}) {
     _connectWebSocket();
   }
 
   void _connectWebSocket() {
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://10.0.2.2:8080/room'),
+      Uri.parse('ws://10.0.2.2:8080/$route?roomId=$roomId'),
     );
 
     channel!.stream.listen(
@@ -48,7 +50,7 @@ class MessagingRequest {
   void sendMessage(String message) {
     if (message.isNotEmpty) {
       try {
-        channel?.sink.add(message);
+        channel.sink.add(message);
       } catch (error) {
         print('Error sending message: $error');
       }

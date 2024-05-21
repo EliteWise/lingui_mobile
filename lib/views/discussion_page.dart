@@ -44,7 +44,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatPage(discussionId: discussions[index].id),
+                    MaterialPageRoute(builder: (context) => ChatPage(route: '/chat', discussionId: discussions[index].id),
                     ),
                   );
                 },

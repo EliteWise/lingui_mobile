@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lingui_mobile/services/MessagingRequest.dart';
 
 class ChatPage extends StatefulWidget {
+  final String route;
   final String discussionId;
 
-  const ChatPage({super.key, required this.discussionId});
+  const ChatPage({super.key, required this.route, required this.discussionId});
 
   @override
   ChatPageState createState() => ChatPageState();
@@ -18,7 +19,7 @@ class ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
-    _messagingRequest = MessagingRequest();
+    _messagingRequest = MessagingRequest(route: widget.route, roomId: widget.discussionId);
     _messagingRequest.onMessageReceived = (message) {
       setState(() {
         _messages.add(message);
