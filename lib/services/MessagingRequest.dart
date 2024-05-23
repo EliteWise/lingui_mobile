@@ -14,9 +14,12 @@ class MessagingRequest {
   }
 
   void _connectWebSocket() {
+    final uri = Uri.parse('ws://10.0.2.2:8080/$route?roomId=$roomId');
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://10.0.2.2:8080/$route?roomId=$roomId'),
+        uri
     );
+
+    print('Connecting to $uri');
 
     channel!.stream.listen(
           (message) {

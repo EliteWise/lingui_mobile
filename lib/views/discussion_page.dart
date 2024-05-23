@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lingui_mobile/utils/Utils.dart';
+import '../services/room_service.dart';
 
 import '../models/discussion.dart';
 import 'chat_page.dart';
@@ -14,10 +14,7 @@ class DiscussionPage extends StatefulWidget {
 
 class _DiscussionPageState extends State<DiscussionPage> {
 
-  List<Discussion> discussions = [
-    Discussion(id: '1', title: 'Discussion 1', participants: ["Florent"], lastMessage: 'Hello World', lastMessageTime: DateTime.now(), isRead: true, type: 'group'),
-    Discussion(id: '2', title: 'Discussion 2', participants: ["Lucas"], lastMessage: 'Bonjour', lastMessageTime: DateTime.now(), isRead: false, type: 'individual'),
-  ];
+  List<Discussion> discussions = [];
 
   // TODO: Consider using state management package like Provider or Riverpod
 
@@ -44,7 +41,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatPage(route: '/chat', discussionId: discussions[index].id),
+                    MaterialPageRoute(builder: (context) => ChatPage(route: 'chat', discussionId: discussions[index].id),
                     ),
                   );
                 },
@@ -53,9 +50,31 @@ class _DiscussionPageState extends State<DiscussionPage> {
         )
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          var newDiscussion = Discussion(id: '3', title: 'Discussion 3', participants: ["Lucas"], lastMessage: 'Hi', lastMessageTime: DateTime.now(), isRead: false, type: 'individual');
-          handleAddDiscussion(newDiscussion);
+        onPressed: () async {
+
+          try {
+
+            var newDiscussion = Discussion(
+              id: '',
+              title: 'Discussion',
+              participants: ["Participant"],
+              lastMessage: '',
+              lastMessageTime: DateTime.now(),
+              isRead: false,
+              type: 'individual',
+            );
+
+            final roomId = await createRoom(newDiscussion);
+            newDiscussion.id = roomId;
+
+            handleAddDiscussion(newDiscussion);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatPage(route: 'chat', discussionId: roomId))
+            );
+          } catch (e) {
+            print('Failed to create room: $e');
+          }
         },
         child: Icon(Icons.add),
       ),
