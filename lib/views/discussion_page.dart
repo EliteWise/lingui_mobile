@@ -58,7 +58,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
               id: '',
               title: 'Discussion',
               participants: ["Participant"],
-              lastMessage: '',
+              lastMessage: '?',
               lastMessageTime: DateTime.now(),
               isRead: false,
               type: 'individual',
