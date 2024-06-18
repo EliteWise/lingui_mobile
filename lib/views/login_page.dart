@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'discussion_page.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -8,8 +10,13 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/login-background.jpg'),
+            fit: BoxFit.cover,
+          )
+        ),
         alignment: Alignment.center,
-        color: Colors.white,
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Column(
@@ -20,8 +27,10 @@ class LoginPage extends StatelessWidget {
               const Text(
                 "Welcome on Lingui !",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   decoration: TextDecoration.none,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center, // Center align the text
               ),
@@ -31,7 +40,7 @@ class LoginPage extends StatelessWidget {
                   hintText: 'Username',
                   border: InputBorder.none,
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Color(0xFFFFFFFF),
                 ),
               ),
               const SizedBox(height: 16.0), // Add space between elements
@@ -40,17 +49,40 @@ class LoginPage extends StatelessWidget {
                   hintText: 'Password',
                   border: InputBorder.none,
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Color(0xFFFFFFFF),
                 ),
                 obscureText: true,
               ),
               const SizedBox(height: 16.0), // Add space between elements
               ElevatedButton(
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.deepOrangeAccent),
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
                 ),
-                onPressed: () => print("pressed"),
-                child: const Text("Login with Google"),
+                onPressed: () {
+                  Navigator.push(
+                  context,
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
+                    ),
+                  );
+                },
+                child: const Text("Login with Email  ",
+                style: TextStyle(color: Colors.white),
+                ),
+              ),
+              ElevatedButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
+                    ),
+                  );
+                },
+                child: const Text("Login with Google",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),

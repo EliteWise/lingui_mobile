@@ -5,6 +5,8 @@ import '../models/discussion.dart';
 import 'chat_page.dart';
 
 class DiscussionPage extends StatefulWidget {
+  const DiscussionPage({super.key});
+
 
   @override
   State<StatefulWidget> createState() => _DiscussionPageState();
