@@ -28,11 +28,12 @@ class Discussion {
       lastMessageTime: DateTime.parse(json['lastMessageTime']),
       isRead: json['isRead'],
       type: json['type'],
+      imageUrl: json.containsKey('imageUrl') ? json['imageUrl'] : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    final data = {
       'id': id,
       'title': title,
       'participants': participants,
@@ -40,7 +41,12 @@ class Discussion {
       'lastMessageTime': lastMessageTime.toIso8601String(),
       'isRead': isRead,
       'type': type,
+      'imageUrl': imageUrl,
     };
+    if (imageUrl != null) {
+      data['imageUrl'] = imageUrl;
+    }
+    return data;
   }
 
 }

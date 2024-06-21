@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lingui_mobile/services/MessagingRequest.dart';
+import 'package:lingui_mobile/widgets/message_cloud.dart';
 
 class ChatPage extends StatefulWidget {
   final String route;
@@ -54,9 +55,7 @@ class ChatPageState extends State<ChatPage> {
           Expanded(
             child: ListView.builder(
               itemCount: _messages.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(_messages[index]),
-              ),
+              itemBuilder: (context, index) => MessageCloud(message: _messages[index])
             ),
           ),
           Padding(
