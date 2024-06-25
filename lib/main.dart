@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lingui_mobile/views/discussion_page.dart';
 import 'package:lingui_mobile/views/login_page.dart';
+import 'package:lingui_mobile/views/profile_page.dart';
 
 void main() {
   runApp(const LinguiMobile());
@@ -17,7 +18,7 @@ class LinguiMobile extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+      home: ProfilePage.test(),
     );
   }
 
