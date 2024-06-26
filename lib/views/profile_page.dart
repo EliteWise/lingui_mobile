@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lingui_mobile/widgets/language_card.dart';
+
+import '../utils/Utils.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -15,8 +20,8 @@ class ProfilePage extends StatefulWidget {
   final int audiosListened;
   final int bookmarks;
   final int streak;
-  final Map<List<String>, List<int>> learningLanguages;
-  final Map<List<String>, List<int>> nativeLanguages;
+  final Map<String, int> learningLanguages;
+  final String nativeLanguage;
   final int appreciations;
   final bool isActiveBadge;
   final int streakRank;
@@ -36,7 +41,7 @@ class ProfilePage extends StatefulWidget {
     required this.bookmarks,
     required this.streak,
     required this.learningLanguages,
-    required this.nativeLanguages,
+    required this.nativeLanguage,
     required this.appreciations,
     required this.isActiveBadge,
     required this.streakRank,
@@ -59,11 +64,9 @@ class ProfilePage extends StatefulWidget {
     this.bookmarks = 15,
     this.streak = 7,
     this.learningLanguages = const {
-      ['English', 'Spanish']: [3, 4],
+      'English': 1, 'Spanish': 2,
     },
-    this.nativeLanguages = const {
-      ['French']: [5],
-    },
+    this.nativeLanguage = "Spanish",
     this.appreciations = 200,
     this.isActiveBadge = true,
     this.streakRank = 4000,
@@ -87,8 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
   late int audiosListened;
   late int bookmarks;
   late int streak;
-  late Map<List<String>, List<int>> learningLanguages;
-  late Map<List<String>, List<int>> nativeLanguages;
+  late Map<String, int> learningLanguages;
+  late String nativeLanguage;
   late int appreciations;
   late bool isActiveBadge;
   late int streakRank;
@@ -109,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
     bookmarks = widget.bookmarks;
     streak = widget.streak;
     learningLanguages = widget.learningLanguages;
-    nativeLanguages = widget.nativeLanguages;
+    nativeLanguage = widget.nativeLanguage;
     appreciations = widget.appreciations;
     isActiveBadge = widget.isActiveBadge;
     streakRank = widget.streakRank;
@@ -124,6 +127,14 @@ class _ProfilePageState extends State<ProfilePage> {
       {'value': imagesPosted, 'label': 'Images Posted'},
       {'value': streakRank, 'label': 'Streak Rank'},
     ];
+
+    nativeLanguage = "French";
+
+    learningLanguages = {
+      "Spanish": 3,
+      "German": 28,
+      "Italian": 50,
+    };
 
     return Scaffold(
       appBar: AppBar(
@@ -143,6 +154,20 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               CircleAvatar(
                 backgroundImage: picture.image,
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  SizedBox(width: 5),
+                  SvgPicture.asset(
+                    getFlagAsset("French"),
+                    package: 'country_icons',
+                    width: 18,
+                    height: 18,
+                  ),
+                  SizedBox(width: 20),
+                  Text("French"),
+                ],
               ),
               const SizedBox(height: 16),
               const Divider(),
@@ -168,6 +193,19 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 16),
               const Divider(),
+              const SizedBox(height: 16),
+              Text("Learning Languages:"),
+              const SizedBox(height: 16),
+              Column(
+                children: [
+                  ...learningLanguages.entries.map((entry) {
+                    return LanguageCard(language: entry.key, level: entry.value);
+                  }).toList(),
+                ],
+              ),
+              const SizedBox(height: 16),
+              const Divider(),
+              const SizedBox(height: 16),
             ],
           ),
         ),
