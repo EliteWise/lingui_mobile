@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lingui_mobile/widgets/language_card.dart';
 
 import '../utils/Utils.dart';
@@ -76,7 +79,7 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
 
   late String name;
   late Image picture;
@@ -95,6 +98,9 @@ class _ProfilePageState extends State<ProfilePage> {
   late int appreciations;
   late bool isActiveBadge;
   late int streakRank;
+
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -116,6 +122,13 @@ class _ProfilePageState extends State<ProfilePage> {
     appreciations = widget.appreciations;
     isActiveBadge = widget.isActiveBadge;
     streakRank = widget.streakRank;
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1, microseconds: 500),
+        vsync: this,
+    )..repeat(reverse: true);
+
+    _animation = Tween(begin: 0.25, end: 1.0).animate(_controller);
   }
 
   @override
@@ -125,7 +138,6 @@ class _ProfilePageState extends State<ProfilePage> {
       {'value': followers, 'label': 'Followers'},
       {'value': following, 'label': 'Following'},
       {'value': imagesPosted, 'label': 'Images Posted'},
-      {'value': streakRank, 'label': 'Streak Rank'},
     ];
 
     nativeLanguage = "French";
@@ -141,8 +153,6 @@ class _ProfilePageState extends State<ProfilePage> {
         title: Row(
           children: [
             Text(name),
-            const SizedBox(width: 8),
-            if (isActiveBadge) const Icon(Icons.badge, color: Colors.green),
           ],
         ),
       ),
@@ -152,22 +162,57 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                backgroundImage: picture.image,
-              ),
-              const SizedBox(height: 16),
-              Row(
+              Column(
                 children: [
-                  SizedBox(width: 5),
-                  SvgPicture.asset(
-                    getFlagAsset("French"),
-                    package: 'country_icons',
-                    width: 18,
-                    height: 18,
+                  Row(
+                    children: [
+                      SizedBox(width: 5),
+                      SvgPicture.asset(
+                        getFlagAsset("French"),
+                        package: 'country_icons',
+                        width: 18,
+                        height: 18,
+                      ),
+                      SizedBox(width: 20),
+                      Text("French"),
+                      Spacer(),
+                      Text(appreciations.toString()),
+                      SizedBox(width: 10),
+                      Icon(Icons.favorite, color: Colors.redAccent)
+                    ],
                   ),
-                  SizedBox(width: 20),
-                  Text("French"),
-                ],
+                  const FaIcon(
+                    FontAwesomeIcons.crown,
+                    color: Colors.amber,
+                    size: 16,
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundImage: picture.image,
+                      radius: 50,
+                    ),
+                  ),
+                  Positioned(
+                    child: Text(streak.toString()),
+                  ),
+                  SizedBox(height: 10),
+                  AnimatedBuilder(
+                      animation: _animation,
+                      builder: (context, child) {
+                        return Opacity(
+                          opacity: _animation.value,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber, // Button color
+                            ),
+                            onPressed: () {
+
+                            },
+                            child: Text('Confirm Streak'),
+                          )
+                        );
+                      }),
+                ]
               ),
               const SizedBox(height: 16),
               const Divider(),
@@ -194,7 +239,20 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 16),
               const Divider(),
               const SizedBox(height: 16),
-              Text("Learning Languages:"),
+              const Center(
+                child: Text("Learning Languages",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 5.0,
+                          color: Colors.black26,
+                          offset: Offset(1.0, 1.0),
+                        ),
+                      ],
+                    )),
+              ),
               const SizedBox(height: 16),
               Column(
                 children: [
