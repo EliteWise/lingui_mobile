@@ -18,7 +18,7 @@ class LinguiMobile extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ProfilePage.test(),
+      home: const DiscussionPage(),
     );
   }
 
