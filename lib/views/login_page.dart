@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/views/login_email_page.dart';
 
 import 'discussion_page.dart';
 
@@ -34,44 +36,14 @@ class LoginPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center, // Center align the text
               ),
-              const SizedBox(height: 16.0), // Add space between elements
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: Color(0xFFFFFFFF),
-                ),
-              ),
-              const SizedBox(height: 16.0), // Add space between elements
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: Color(0xFFFFFFFF),
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 16.0), // Add space between elements
-              ElevatedButton(
-                style: const ButtonStyle(
+              SizedBox(height: MediaQuery.of(context).size.height * 0.08), // Add space between elements
+              ElevatedButton.icon(
+                icon: Icon(FontAwesomeIcons.google, color: Colors.white),
+                label: Text('Login with Google',
+                    style: TextStyle(color: Colors.white)),
+                style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                  context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
-                    ),
-                  );
-                },
-                child: const Text("Login with Email  ",
-                style: TextStyle(color: Colors.white),
-                ),
-              ),
-              ElevatedButton(
-                style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -80,10 +52,53 @@ class LoginPage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text("Login with Google",
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              ElevatedButton.icon(
+                icon: Icon(FontAwesomeIcons.facebookF, color: Colors.white),
+                label: Text('Login with Facebook',
+                    style: TextStyle(color: Colors.white)),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              const Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(color: Colors.grey),
+                  ),
+                  Text("  or  ", style: TextStyle(color: Colors.white)),
+                  Expanded(
+                    child: Divider(color: Colors.grey),
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              ElevatedButton.icon(
+                icon: Icon(Icons.email, color: Colors.white),
+                label: Text('Login with Email',
+                    style: TextStyle(color: Colors.white)),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => LoginEmailPage()
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),

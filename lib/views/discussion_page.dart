@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wave_divider/wave_divider.dart';
 import '../services/room_service.dart';
 
 import '../models/discussion.dart';
