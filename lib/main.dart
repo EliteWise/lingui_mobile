@@ -19,7 +19,7 @@ class LinguiMobile extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LeaderboardPage(),
+      home: const DiscussionPage(),
     );
   }
 

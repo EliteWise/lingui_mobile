@@ -1,6 +1,17 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:lingui_mobile/services/MessagingRequest.dart';
-import 'package:lingui_mobile/widgets/message_cloud.dart';
+import 'package:lingui_mobile/themes/chat_theme.dart';
+
+String randomString() {
+  final random = Random.secure();
+  final values = List<int>.generate(16, (i) => random.nextInt(255));
+  return base64UrlEncode(values);
+}
 
 class ChatPage extends StatefulWidget {
   final String route;
@@ -13,74 +24,38 @@ class ChatPage extends StatefulWidget {
 }
 
 class ChatPageState extends State<ChatPage> {
-  final List<String> _messages = [];
+  final List<types.Message> _messages = [];
+  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
   final TextEditingController _controller = TextEditingController();
   late MessagingRequest _messagingRequest;
 
   @override
-  void initState() {
-    super.initState();
-    _messagingRequest = MessagingRequest(route: widget.route, roomId: widget.discussionId);
-    _messagingRequest.onMessageReceived = (message) {
-      setState(() {
-        _messages.add(message);
-      });
-    };
-  }
-
-  void _sendMessage() {
-    if(_controller.text.isNotEmpty) {
-      _messagingRequest.sendMessage(_controller.text);
-      setState(() {
-        _messages.add(_controller.text);
-        _controller.clear();
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _messagingRequest.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: _messages.length,
-              itemBuilder: (context, index) => MessageCloud(message: _messages[index])
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter a message...',
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: _sendMessage,
-                ),
-              ],
-            ),
-          ),
-        ],
+      body: Chat(
+        messages: _messages,
+        onSendPressed: _handleSendPressed,
+        user: _user,
+        theme: const LinguiChatTheme(),
       ),
     );
-    throw UnimplementedError();
+  }
+
+  void _addMessage(types.Message message) {
+    setState(() {
+      _messages.insert(0, message);
+    });
+  }
+
+  void _handleSendPressed(types.PartialText message) {
+    final textMessage = types.TextMessage(
+      author: _user,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      id: randomString(),
+      text: message.text,
+    );
+
+    _addMessage(textMessage);
   }
   
   
