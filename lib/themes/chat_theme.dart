@@ -5,20 +5,20 @@ class LinguiChatTheme extends DefaultChatTheme {
   const LinguiChatTheme({
     Color backgroundColor = const Color(0xFFFFF8E1), // Ambre clair
     TextStyle dateDividerTextStyle = const TextStyle(
-      color: Color(0xFFFFC107), // Ambre foncé
+      color: Color(0xFF795548), // Ambre foncé
       fontSize: 12,
       fontWeight: FontWeight.w800,
       height: 1.333,
     ),
     TextStyle emptyChatPlaceholderTextStyle = const TextStyle(
-      color: Color(0xFFFFA000), // Ambre moyen
+      color: Color(0xFF795548), // Ambre moyen
       fontSize: 16,
       fontWeight: FontWeight.w500,
       height: 1.5,
     ),
     Color errorColor = const Color(0xFFFF5252), // Rouge clair pour les erreurs
     Color inputBackgroundColor = const Color(0xFFFFECB3), // Ambre plus doux
-    Color primaryColor = const Color(0xFFFFC107), // Ambre foncé
+    Color primaryColor = const Color(0xFFFFECB3), // Ambre foncé
     TextStyle receivedMessageBodyTextStyle = const TextStyle(
       color: Color(0xFF795548), // Marron
       fontSize: 16,

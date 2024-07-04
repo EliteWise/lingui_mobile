@@ -34,6 +34,41 @@ class ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: const Color(0xFFFFECB3),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(_user.firstName ?? "",
+              style: TextStyle(
+                  color: Color(0xFF795548)
+              ),
+                overflow: TextOverflow.ellipsis,
+            ),
+            const Text("En ligne",
+            style: TextStyle(
+              fontSize: 12
+            ),
+              overflow: TextOverflow.ellipsis,
+            )
+          ],
+        ),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: IconButton(
+                icon: const Icon(Icons.settings, color: Color(0xFF795548),),
+                onPressed: () {  },
+              ),
+          )
+        ],
+      ),
       body: Chat(
           messages: _messages,
           onSendPressed: _handleSendPressed,
