@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../services/room_service.dart';
 
@@ -169,7 +170,9 @@ class _DiscussionPageState extends State<DiscussionPage> {
               children: [
                 ListTile(
                   leading: CircleAvatar(
-                      backgroundImage: NetworkImage(discussions[index].imageUrl ?? '')
+                      backgroundImage: CachedNetworkImageProvider(
+                         discussions[index].imageUrl ?? '',
+                      )
                   ),
                   title: Text(discussions[index].title),
                   subtitle: Text(discussions[index].lastMessage),
