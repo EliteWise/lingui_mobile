@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LeaderboardPage extends StatelessWidget {
   const LeaderboardPage({super.key});
@@ -19,7 +20,37 @@ class LeaderboardPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Leaderboard'),
+        title: const Row(
+          children: [
+            Text('Leaderboard'),
+            SizedBox(width: 8),
+            FaIcon(
+              FontAwesomeIcons.crown,
+              color: Colors.amber,
+              size: 23,
+            )
+          ],
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+
+              },
+              child: Text(
+                'Global',
+                  style: TextStyle(color: Colors.white)
+              )
+          ),
+          TextButton(
+              onPressed: () {
+
+              },
+              child: Text(
+                  'Monthly',
+                  style: TextStyle(color: Colors.grey)
+              )
+          ),
+        ],
       ),
       body: ListView.builder(
           itemCount: leaderboardData.length,
@@ -33,7 +64,14 @@ class LeaderboardPage extends StatelessWidget {
                   radius: 25,
                 ),
                 title: Text(user['name']),
-                trailing: Text(user['streak'].toString()),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(user['streak'].toString()),
+                    SizedBox(width: 8),
+                    FaIcon(FontAwesomeIcons.crown, color: Colors.amber)
+                  ],
+                ),
               ),
             );
           }
