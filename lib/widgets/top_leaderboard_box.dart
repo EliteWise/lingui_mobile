@@ -7,6 +7,7 @@ class TopLeaderboardBox extends StatelessWidget {
   final int streak;
   final bool isPrimary;
   final String imageUrl;
+  final int index;
 
   const TopLeaderboardBox({
     Key? key,
@@ -14,15 +15,40 @@ class TopLeaderboardBox extends StatelessWidget {
     required this.streak,
     this.isPrimary = false,
     this.imageUrl = 'https://via.placeholder.com/150',
+    required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    String displayIndex;
+    if (isPrimary) {
+      displayIndex = '1';
+    } else if (index == 1) {
+      displayIndex = '2';
+    } else {
+      displayIndex = '3';
+    }
+
     return Column(
       children: [
+        Text(displayIndex,
+        style: const TextStyle(
+         fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.deepOrangeAccent,
+          shadows: [
+            Shadow(
+              blurRadius: 10.0,
+              color: Colors.black45,
+              offset: Offset(2.0, 2.0),
+            ),
+          ],
+        )),
         Container(
           decoration: BoxDecoration(
-            color: isPrimary ? Colors.amber : Colors.grey[300],
+            color: Colors.grey[300],
+            border: isPrimary ? Border.all(color: Colors.amber, width: 1.5) : null,
             borderRadius: BorderRadius.circular(8.0),
             boxShadow: [
               BoxShadow(
