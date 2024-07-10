@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lingui_mobile/widgets/multi_select_list.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -45,6 +46,44 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
     }
   }
 
+  Future<void> _selectCountry() async {
+    List<String> countries = [
+      'USA',
+      'Canada',
+      'France',
+      'Germany',
+      'Japan',
+    ];
+
+    List<String> initiallySelected = [];
+
+    final List<String>? selectedCountries = await showDialog<List<String>>(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Select Country'),
+              content: MultiSelectList<String>(
+                data: countries,
+                selectedItems: initiallySelected,
+                itemLabelBuilder: (country) => country,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, initiallySelected);
+                  },
+                  child: const Text('Apply'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -61,7 +100,7 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
                   IconButton(
                     icon: Icon(Icons.tune),
                     onPressed: () {
-
+                      _selectCountry();
                     },
                   ),
                   IconButton(
