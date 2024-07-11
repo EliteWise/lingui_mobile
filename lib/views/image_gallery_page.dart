@@ -33,6 +33,14 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
     "https://e0.pxfuel.com/wallpapers/163/906/desktop-wallpaper-beautiful-nature-with-girl-beautiful-girl-with-nature-and-moon-high-resolution-beautiful.jpg"
   ];
 
+  List<String> personalUrls = [
+    "https://scx2.b-cdn.net/gfx/news/hires/2019/2-nature.jpg",
+    "https://w0.peakpx.com/wallpaper/265/481/HD-wallpaper-nature.jpg",
+    "https://e0.pxfuel.com/wallpapers/163/906/desktop-wallpaper-beautiful-nature-with-girl-beautiful-girl-with-nature-and-moon-high-resolution-beautiful.jpg"
+  ];
+
+  bool showPersonalImages = false;
+
   final ImagePicker picker = ImagePicker();
 
   Future<void> _addImage() async {
@@ -86,12 +94,19 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final ImagePicker picker = ImagePicker();
+    List<String> displayedUrls = showPersonalImages ? personalUrls : listOfUrls;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gallery"),
+        title: Row(
+          children: [
+            if(showPersonalImages) ...[
+            Icon(Icons.person, color: Colors.grey),
+            SizedBox(width: 8),
+            ],
+            Text(showPersonalImages ? "Your Gallery" : "Gallery"),
+          ],
+        ),
         actions: [
           Padding(
               padding: EdgeInsets.only(right: 18),
@@ -106,7 +121,9 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
                   IconButton(
                     icon: Icon(Icons.image_outlined),
                     onPressed: () {
-
+                      setState(() {
+                        showPersonalImages = !showPersonalImages;
+                      });
                     },
                   ),
                   IconButton(
@@ -120,37 +137,50 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 12.0,
-            mainAxisSpacing: 12.0,
-          ),
-          itemCount: listOfUrls.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ImageViewPage(
-                      imageUrls: listOfUrls,
-                      initialIndex: index,
-                    ),
-                  ),
-                );
-              },
-              child: CachedNetworkImage(
-                imageUrl: listOfUrls[index],
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
-              ),
+        child: AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.0, 1.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
             );
           },
-        ),
+          child: GridView.builder(
+            key: ValueKey<bool>(showPersonalImages),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 4.0,
+            ),
+            itemCount: displayedUrls.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageViewPage(
+                        imageUrls: displayedUrls,
+                        initialIndex: index,
+                      ),
+                    ),
+                  );
+                },
+                child: CachedNetworkImage(
+                  imageUrl: displayedUrls[index],
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          ),
+        )
       ),
     );
   }
