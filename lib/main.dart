@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingui_mobile/views/country_folder_page.dart';
 import 'package:lingui_mobile/views/discussion_page.dart';
 import 'package:lingui_mobile/views/image_gallery_page.dart';
 import 'package:lingui_mobile/views/leaderboard_page.dart';
@@ -20,7 +21,7 @@ class LinguiMobile extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const ImageGalleryPage(),
+      home: const CountryFolderPage(),
     );
   }
 

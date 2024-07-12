@@ -30,6 +30,25 @@ const Map<String, String> languageToFlagCode = {
   'Indonesian': 'id',
   'Malay': 'my',
   'Filipino': 'ph',
+  'USA': 'us',
+  'Canada': 'ca',
+  'Germany': 'de',
+  'Japan': 'jp',
+  'Australia': 'au',
+  'Brazil': 'br',
+  'India': 'in',
+  'China': 'cn',
+  'Mexico': 'mx',
+  'Russia': 'ru',
+  'Italy': 'it',
+  'Spain': 'es',
+  'United Kingdom': 'gb',
+  'South Korea': 'kr',
+  'South Africa': 'za',
+  'Argentina': 'ar',
+  'Netherlands': 'nl',
+  'Sweden': 'se',
+  'New Zealand': 'nz'
 };
 
 String getFlagAsset(String language) {
