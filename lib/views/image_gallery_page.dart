@@ -155,8 +155,25 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
               crossAxisSpacing: 4.0,
               mainAxisSpacing: 4.0,
             ),
-            itemCount: displayedUrls.length,
+            itemCount: displayedUrls.length + 1,
             itemBuilder: (context, index) {
+              if(index == displayedUrls.length) {
+                return GestureDetector(
+                  onTap: () {
+                    _addImage();
+                  },
+                  child: Container(
+                    color: Colors.grey[300],
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.grey[700],
+                        size: 50.0,
+                      ),
+                    ),
+                  ),
+                );
+              }
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
