@@ -7,6 +7,7 @@ import 'package:lingui_mobile/views/leaderboard_page.dart';
 import 'package:lingui_mobile/views/login_page.dart';
 import 'package:lingui_mobile/views/navigation_page.dart';
 import 'package:lingui_mobile/views/profile_page.dart';
+import 'package:lingui_mobile/views/settings_page.dart';
 
 void main() {
   runApp(const LinguiMobile());
@@ -23,7 +24,7 @@ class LinguiMobile extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const NavigationPage(),
+      home: const SettingsPage(),
     );
   }
 
