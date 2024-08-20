@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lingui_mobile/views/jobs_page.dart';
 import 'package:lingui_mobile/views/legal_privacy_page.dart';
+import 'package:lingui_mobile/views/support_help_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -25,6 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Row(
               children: [
                 Icon(Icons.security_update_good_rounded),
+                const SizedBox(width: 16.0),
                 Text('Privacy & Security')
               ],
             ),
@@ -43,8 +46,18 @@ class _SettingsPageState extends State<SettingsPage> {
               MaterialPageRoute(builder: (context) => LegalPrivacyPage()),
             );
           }),
-          SettingItem(icon: Icons.support, title: 'Support & Help', onTap: () {}),
-          SettingItem(icon: Icons.work, title: 'Jobs', onTap: () {}),
+          SettingItem(icon: Icons.support, title: 'Support & Help', onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SupportHelpPage())
+            );
+          }),
+          SettingItem(icon: Icons.work, title: 'Jobs', onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => JobsPage())
+            );
+          }),
         ]
       )
     );
