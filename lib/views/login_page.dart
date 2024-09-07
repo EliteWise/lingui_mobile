@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lingui_mobile/views/login_email_page.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'discussion_page.dart';
 
