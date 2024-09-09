@@ -27,6 +27,8 @@ class JobsPage extends StatelessWidget {
 
   final String supportEmail = "support@yourcompany.com";
 
+  JobsPage({super.key});
+
   Future<void> _launchEmail() async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
@@ -45,28 +47,28 @@ class JobsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Job Openings"),
+        title: const Text("Job Openings"),
       ),
       body: ListView.builder(
         itemCount: jobListings.length,
         itemBuilder: (context, index) {
           final job = jobListings[index];
           return Card(
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: ListTile(
               title: Text(
                 job["title"]!,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(job["location"]!),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Text(job["description"]!),
                 ],
               ),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 _launchEmail();
               },

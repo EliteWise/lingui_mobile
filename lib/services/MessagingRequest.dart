@@ -21,7 +21,7 @@ class MessagingRequest {
 
     print('Connecting to $uri');
 
-    channel!.stream.listen(
+    channel.stream.listen(
           (message) {
             if (onMessageReceived != null) {
               onMessageReceived!(message);

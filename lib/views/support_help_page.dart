@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SupportHelpPage extends StatefulWidget {
+  const SupportHelpPage({super.key});
+
   @override
   _SupportHelpPageState createState() => _SupportHelpPageState();
 }
@@ -54,17 +56,17 @@ class _SupportHelpPageState extends State<SupportHelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Support & Help"),
+        title: const Text("Support & Help"),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           _buildContactSupportSection(context),
-          SizedBox(height: 24.0),
+          const SizedBox(height: 24.0),
           _buildSearchBar(),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           _buildFAQSection(),
-          SizedBox(height: 24.0),
+          const SizedBox(height: 24.0),
           _buildSupportEmail(),
         ],
       ),
@@ -73,13 +75,13 @@ class _SupportHelpPageState extends State<SupportHelpPage> {
 
   Widget _buildContactSupportSection(BuildContext context) {
     return ListTile(
-      title: Text("Contact Support"),
-      subtitle: Text("Need help? Contact our support team."),
-      trailing: Icon(Icons.arrow_forward_ios),
+      title: const Text("Contact Support"),
+      subtitle: const Text("Need help? Contact our support team."),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ContactSupportPage()),
+          MaterialPageRoute(builder: (context) => const ContactSupportPage()),
         );
       },
     );
@@ -87,7 +89,7 @@ class _SupportHelpPageState extends State<SupportHelpPage> {
 
   Widget _buildSearchBar() {
     return TextField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Search FAQ",
         hintText: "Enter keywords to quickly find answers",
         border: OutlineInputBorder(),
@@ -119,9 +121,9 @@ class _SupportHelpPageState extends State<SupportHelpPage> {
         children: [
           Text(
             question,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 4.0),
+          const SizedBox(height: 4.0),
           Text(answer),
         ],
       ),
@@ -129,23 +131,23 @@ class _SupportHelpPageState extends State<SupportHelpPage> {
   }
 
   Widget _buildSupportEmail() {
-    final supportEmail = "support@yourcompany.com";
+    const supportEmail = "support@yourcompany.com";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Support Email",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         GestureDetector(
           onTap: () {
-            Clipboard.setData(ClipboardData(text: supportEmail));
+            Clipboard.setData(const ClipboardData(text: supportEmail));
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Email address copied to clipboard")),
+              const SnackBar(content: Text("Email address copied to clipboard")),
             );
           },
-          child: Text(
+          child: const Text(
             supportEmail,
             style: TextStyle(
               fontSize: 16,
@@ -160,55 +162,57 @@ class _SupportHelpPageState extends State<SupportHelpPage> {
 }
 
 class ContactSupportPage extends StatelessWidget {
+  const ContactSupportPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contact Support"),
+        title: const Text("Contact Support"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "We're here to help!",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               "If you need assistance, please provide details about your issue or question. Our support team will get back to you as soon as possible.",
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 16),
-            TextField(
+            const SizedBox(height: 16),
+            const TextField(
               decoration: InputDecoration(
                 labelText: "Your Email",
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 16),
-            TextField(
+            const SizedBox(height: 16),
+            const TextField(
               decoration: InputDecoration(
                 labelText: "Subject",
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16),
-            TextField(
+            const SizedBox(height: 16),
+            const TextField(
               decoration: InputDecoration(
                 labelText: "Message",
                 border: OutlineInputBorder(),
               ),
               maxLines: 5,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
                 // Action to submit the support request
               },
-              child: Text("Send Message"),
+              child: const Text("Send Message"),
             ),
           ],
         ),

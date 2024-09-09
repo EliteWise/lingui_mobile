@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'discussion_page.dart';
 
 class LoginEmailPage extends StatelessWidget {
-  const LoginEmailPage({Key? key}) : super(key: key);
+  const LoginEmailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +59,13 @@ class LoginEmailPage extends StatelessWidget {
                 label: const Text('Login with Email',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
-                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const DiscussionPage()
                     ),
                   );
                 },

@@ -23,7 +23,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Discussion 1',
       participants: ['Alice', 'Bob'],
       lastMessage: 'Salut Bob, comment ça va?',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 10)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 10)),
       isRead: true,
       type: 'individual',
       imageUrl: 'https://via.placeholder.com/150',
@@ -33,7 +33,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Groupe Projet',
       participants: ['Alice', 'Bob', 'Charlie'],
       lastMessage: 'Prochaine réunion demain à 15h.',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 20)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 20)),
       isRead: false,
       type: 'group',
       imageUrl: 'https://via.placeholder.com/150',
@@ -43,7 +43,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Discussion 3',
       participants: ['Alice', 'Dave'],
       lastMessage: 'Tu as fini le rapport?',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 30)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 30)),
       isRead: true,
       type: 'individual',
       imageUrl: 'https://via.placeholder.com/150',
@@ -53,7 +53,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Groupe Famille',
       participants: ['Alice', 'Maman', 'Papa', 'Soeur'],
       lastMessage: 'Dîner de famille dimanche.',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 40)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 40)),
       isRead: true,
       type: 'group',
       imageUrl: 'https://via.placeholder.com/150',
@@ -63,7 +63,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Discussion 5',
       participants: ['Alice', 'Eve'],
       lastMessage: 'On se voit ce weekend?',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 50)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 50)),
       isRead: false,
       type: 'individual',
       imageUrl: 'https://via.placeholder.com/150',
@@ -73,7 +73,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Groupe Amis',
       participants: ['Alice', 'Bob', 'Charlie', 'Dave'],
       lastMessage: 'Qui est partant pour un ciné?',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 60)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 60)),
       isRead: true,
       type: 'group',
       imageUrl: 'https://via.placeholder.com/150',
@@ -83,7 +83,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Discussion 7',
       participants: ['Alice', 'Frank'],
       lastMessage: 'N’oublie pas notre rendez-vous.',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 70)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 70)),
       isRead: true,
       type: 'individual',
       imageUrl: 'https://via.placeholder.com/150',
@@ -93,7 +93,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Groupe Travail',
       participants: ['Alice', 'Bob', 'Charlie', 'Dave', 'Eve'],
       lastMessage: 'Rapport à rendre avant lundi.',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 80)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 80)),
       isRead: false,
       type: 'group',
       imageUrl: 'https://via.placeholder.com/150',
@@ -103,7 +103,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Discussion 9',
       participants: ['Alice', 'Grace'],
       lastMessage: 'Bon anniversaire !',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 90)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 90)),
       isRead: true,
       type: 'individual',
       imageUrl: 'https://via.placeholder.com/150',
@@ -113,7 +113,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
       title: 'Groupe Sport',
       participants: ['Alice', 'Bob', 'Charlie', 'Eve'],
       lastMessage: 'Entraînement annulé.',
-      lastMessageTime: DateTime.now().subtract(Duration(minutes: 100)),
+      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 100)),
       isRead: true,
       type: 'group',
       imageUrl: 'https://via.placeholder.com/150',
@@ -132,13 +132,13 @@ class _DiscussionPageState extends State<DiscussionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Discussions'),
+        title: const Text('Discussions'),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: SearchBar(
             hintText: 'Search...',
-            elevation: MaterialStateProperty.all(0.5),
-            shape: MaterialStateProperty.all(
+            elevation: WidgetStateProperty.all(0.5),
+            shape: WidgetStateProperty.all(
               LinearBorder.none
             ),
             trailing: [
@@ -192,7 +192,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
                     );
                   },
                 ),
-                Container(
+                const SizedBox(
                   width: 300, // Spécifiez la largeur souhaitée ici
                   child: Divider()
                 ),
@@ -228,7 +228,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
             print('Failed to create room: $e');
           }
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

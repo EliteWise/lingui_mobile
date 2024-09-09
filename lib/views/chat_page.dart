@@ -46,7 +46,7 @@ class ChatPageState extends State<ChatPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(_user.firstName ?? "",
-              style: TextStyle(
+              style: const TextStyle(
                   color: Color(0xFF795548)
               ),
                 overflow: TextOverflow.ellipsis,

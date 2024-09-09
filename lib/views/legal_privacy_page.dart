@@ -1,58 +1,60 @@
 import 'package:flutter/material.dart';
 
 class LegalPrivacyPage extends StatelessWidget {
+  const LegalPrivacyPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Legal & Privacy"),
+        title: const Text("Legal & Privacy"),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text("Terms of Service"),
-            subtitle: Text("Read the terms of service"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            title: const Text("Terms of Service"),
+            subtitle: const Text("Read the terms of service"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TermsOfServicePage()),
+                MaterialPageRoute(builder: (context) => const TermsOfServicePage()),
               );
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Privacy Policy"),
-            subtitle: Text("Read our privacy policy"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            title: const Text("Privacy Policy"),
+            subtitle: const Text("Read our privacy policy"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PrivacyPolicyPage()),
+                MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()),
               );
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Data Storage and Usage"),
-            subtitle: Text("Learn about how we store and use your data"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            title: const Text("Data Storage and Usage"),
+            subtitle: const Text("Learn about how we store and use your data"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DataStoragePage()),
+                MaterialPageRoute(builder: (context) => const DataStoragePage()),
               );
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Legal Mentions"),
-            subtitle: Text("View legal mentions"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            title: const Text("Legal Mentions"),
+            subtitle: const Text("View legal mentions"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LegalMentionsPage()),
+                MaterialPageRoute(builder: (context) => const LegalMentionsPage()),
               );
             },
           ),
@@ -63,14 +65,16 @@ class LegalPrivacyPage extends StatelessWidget {
 }
 
 class DataStoragePage extends StatelessWidget {
+  const DataStoragePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Data Storage and Usage"),
+        title: const Text("Data Storage and Usage"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text(
             "Data Storage and Usage:\n\n"
@@ -89,14 +93,16 @@ class DataStoragePage extends StatelessWidget {
 }
 
 class LegalMentionsPage extends StatelessWidget {
+  const LegalMentionsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Legal Mentions"),
+        title: const Text("Legal Mentions"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text(
             "Legal Mentions:\n\n"
@@ -119,14 +125,16 @@ class LegalMentionsPage extends StatelessWidget {
 }
 
 class TermsOfServicePage extends StatelessWidget {
+  const TermsOfServicePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Terms of Service"),
+        title: const Text("Terms of Service"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text(
             "Terms of Service:\n\n"
@@ -145,14 +153,16 @@ class TermsOfServicePage extends StatelessWidget {
 }
 
 class PrivacyPolicyPage extends StatelessWidget {
+  const PrivacyPolicyPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Privacy Policy"),
+        title: const Text("Privacy Policy"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text(
             "Privacy Policy:\n\n"

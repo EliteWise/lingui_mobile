@@ -1,8 +1,5 @@
-import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lingui_mobile/widgets/language_card.dart';
@@ -29,8 +26,8 @@ class ProfilePage extends StatefulWidget {
   final bool isActiveBadge;
   final int streakRank;
 
-  ProfilePage({
-    Key? key,
+  const ProfilePage({
+    super.key,
     required this.name,
     required this.picture,
     required this.followers,
@@ -48,10 +45,10 @@ class ProfilePage extends StatefulWidget {
     required this.appreciations,
     required this.isActiveBadge,
     required this.streakRank,
-  }) : super(key: key);
+  });
 
-  ProfilePage.test({
-    Key? key,
+  const ProfilePage.test({
+    super.key,
     this.name = 'Test User',
     this.picture = const Image(
       image: NetworkImage('https://via.placeholder.com/150'),
@@ -73,7 +70,7 @@ class ProfilePage extends StatefulWidget {
     this.appreciations = 200,
     this.isActiveBadge = true,
     this.streakRank = 4000,
-  }) : super(key: key);
+  });
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -166,19 +163,19 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       SvgPicture.asset(
                         getFlagAsset("French"),
                         package: 'country_icons',
                         width: 18,
                         height: 18,
                       ),
-                      SizedBox(width: 20),
-                      Text("French"),
-                      Spacer(),
+                      const SizedBox(width: 20),
+                      const Text("French"),
+                      const Spacer(),
                       Text(appreciations.toString()),
-                      SizedBox(width: 10),
-                      Icon(Icons.favorite, color: Colors.redAccent)
+                      const SizedBox(width: 10),
+                      const Icon(Icons.favorite, color: Colors.redAccent)
                     ],
                   ),
                   const FaIcon(
@@ -195,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   Positioned(
                     child: Text(streak.toString()),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   AnimatedBuilder(
                       animation: _animation,
                       builder: (context, child) {
@@ -208,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                             onPressed: () {
 
                             },
-                            child: Text('Confirm Streak'),
+                            child: const Text('Confirm Streak'),
                           )
                         );
                       }),
@@ -258,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                 children: [
                   ...learningLanguages.entries.map((entry) {
                     return LanguageCard(language: entry.key, level: entry.value);
-                  }).toList(),
+                  }),
                 ],
               ),
               const SizedBox(height: 16),

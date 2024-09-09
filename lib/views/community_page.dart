@@ -16,22 +16,22 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Community"),
+        title: const Text("Community"),
       ),
       body: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
             return Column(
               children: [
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 CommunityProfile(
-                  imageUrl: 'https://via.placeholder.com/600x400.png?text=Image+' + index.toString(),
+                  imageUrl: 'https://via.placeholder.com/600x400.png?text=Image+$index',
                   name: 'Name',
                   age: 26,
                   nativeLanguage: 'French',
                   learningLanguage: 'Spanish',
                   description: "Description de profil",
-                  tags: ["Learn", "Friendship"],
+                  tags: const ["Learn", "Friendship"],
                   isActive: Random().nextBool(),
                   isNewUser: Random().nextBool(),
                   isConnected: Random().nextBool(),

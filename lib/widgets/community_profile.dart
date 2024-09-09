@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -52,12 +51,12 @@ class CommunityProfile extends StatelessWidget {
                   top: 0,
                   right: 0,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(
+                    child: const Text(
                       'New',
                       style: TextStyle(
                         color: Colors.white,
@@ -78,7 +77,7 @@ class CommunityProfile extends StatelessWidget {
                 ),
             ],
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,56 +86,56 @@ class CommunityProfile extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       age.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Spacer(),
+                    const SizedBox(height: 4),
+                    const Spacer(),
                     if(isActive)
-                    FaIcon(
+                    const FaIcon(
                         FontAwesomeIcons.crown,
                         color: Colors.amber,
                         size: 16.0)
                   ],
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(description),
                 Text(description),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
-                    Text('Native: '),
+                    const Text('Native: '),
                     SvgPicture.asset(
                       getFlagAsset(nativeLanguage),
                       package: 'country_icons',
                       width: 12,
                       height: 12,
                     ),
-                    SizedBox(width: 8),
-                    Text('Learn: '),
+                    const SizedBox(width: 8),
+                    const Text('Learn: '),
                     SvgPicture.asset(
                       getFlagAsset(learningLanguage),
                       package: 'country_icons',
                       width: 12,
                       height: 12,
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Wrap(
                       spacing: 8.0,
                       runSpacing: 4.0,
                       children: tags.map((tag) {
                         return Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0), // Marges internes réduites
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0), // Marges internes réduites
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             border: Border.all(color: Colors.grey[400]!, width: 0.5),
@@ -144,7 +143,7 @@ class CommunityProfile extends StatelessWidget {
                           ),
                           child: Text(
                             tag,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12.0, // Taille de police ajustée
                               color: Colors.black87,
                             ),

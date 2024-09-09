@@ -65,7 +65,7 @@ class CountryFolderPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Albums by Country"),
+        title: const Text("Albums by Country"),
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -82,7 +82,7 @@ class CountryFolderPage extends StatelessWidget {
                   Expanded(
                       flex: 2,
                       child: CachedNetworkImage(
-                        imageUrl: "https://via.placeholder.com/600x400.png?text=Image+" + index.toString(),
+                        imageUrl: "https://via.placeholder.com/600x400.png?text=Image+$index",
                         fit: BoxFit.cover,
                       )
                   ),
@@ -93,7 +93,7 @@ class CountryFolderPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(availableCountries[index]),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             SvgPicture.asset(
                               getFlagAsset(availableCountries[index]),
                               package: 'country_icons',
@@ -111,7 +111,7 @@ class CountryFolderPage extends StatelessWidget {
               Navigator.push(
                   context,
                   PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => ImageGalleryPage(),
+                      pageBuilder: (context, animation, secondaryAnimation) => const ImageGalleryPage(),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       var forwardTween = Tween<double>(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeInOut));
 

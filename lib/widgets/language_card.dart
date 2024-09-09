@@ -6,7 +6,7 @@ class LanguageCard extends StatelessWidget {
   final String language;
   final int level;
 
-  LanguageCard({required this.language, required this.level});
+  const LanguageCard({super.key, required this.language, required this.level});
 
   String getLevelName(int value) {
     if (value >= 75) return "Fluent";

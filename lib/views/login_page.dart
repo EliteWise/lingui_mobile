@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lingui_mobile/views/login_email_page.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'discussion_page.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,34 +37,34 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.08), // Add space between elements
               ElevatedButton.icon(
-                icon: Icon(FontAwesomeIcons.google, color: Colors.white),
-                label: Text('Login with Google',
+                icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
+                label: const Text('Login with Google',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
-                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const DiscussionPage()
                     ),
                   );
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               ElevatedButton.icon(
-                icon: Icon(FontAwesomeIcons.facebookF, color: Colors.white),
-                label: Text('Login with Facebook',
+                icon: const Icon(FontAwesomeIcons.facebookF, color: Colors.white),
+                label: const Text('Login with Facebook',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
-                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => DiscussionPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const DiscussionPage()
                     ),
                   );
                 },
@@ -85,17 +83,17 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               ElevatedButton.icon(
-                icon: Icon(Icons.email, color: Colors.white),
-                label: Text('Login with Email',
+                icon: const Icon(Icons.email, color: Colors.white),
+                label: const Text('Login with Email',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFFFF4500)),
-                  minimumSize: MaterialStateProperty.all(Size(200, 45)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => LoginEmailPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const LoginEmailPage()
                     ),
                   );
                 },

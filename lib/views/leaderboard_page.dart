@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,7 +37,7 @@ class LeaderboardPage extends StatelessWidget {
               onPressed: () {
 
               },
-              child: Text(
+              child: const Text(
                 'Global',
                   style: TextStyle(color: Colors.white)
               )
@@ -47,7 +46,7 @@ class LeaderboardPage extends StatelessWidget {
               onPressed: () {
 
               },
-              child: Text(
+              child: const Text(
                   'Monthly',
                   style: TextStyle(color: Colors.grey)
               )
@@ -57,7 +56,7 @@ class LeaderboardPage extends StatelessWidget {
       body: Column(
         children: [
            Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: leaderboardData.asMap().entries.map((entry) {
@@ -101,8 +100,8 @@ class LeaderboardPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(user['streak'].toString()),
-                          SizedBox(width: 8),
-                          FaIcon(FontAwesomeIcons.crown, color: Colors.amber)
+                          const SizedBox(width: 8),
+                          const FaIcon(FontAwesomeIcons.crown, color: Colors.amber)
                         ],
                       ),
                     ),

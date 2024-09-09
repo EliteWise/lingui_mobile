@@ -6,7 +6,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class ImageGalleryPage extends StatefulWidget {
-  const ImageGalleryPage({Key? key}) : super(key: key);
+  const ImageGalleryPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _ImageGalleryPageState();
@@ -44,15 +44,13 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
   final ImagePicker picker = ImagePicker();
 
   Future<void> _addImage() async {
-    final List<XFile>? images = await picker.pickMultiImage(limit: 4);
-    if(images != null) {
-      setState(() {
-        for(var image in images) {
-          listOfUrls.add("https://via.placeholder.com/600x400.png?text=Image+1"); // image.path
-        }
-      });
+    final List<XFile> images = await picker.pickMultiImage(limit: 4);
+    setState(() {
+      for(var image in images) {
+        listOfUrls.add("https://via.placeholder.com/600x400.png?text=Image+1"); // image.path
+      }
+    });
     }
-  }
 
   Future<void> _selectCountry() async {
     List<String> countries = [
@@ -101,25 +99,25 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
         title: Row(
           children: [
             if(showPersonalImages) ...[
-            Icon(Icons.person, color: Colors.grey),
-            SizedBox(width: 8),
+            const Icon(Icons.person, color: Colors.grey),
+            const SizedBox(width: 8),
             ],
             Text(showPersonalImages ? "Your Gallery" : "Gallery"),
           ],
         ),
         actions: [
           Padding(
-              padding: EdgeInsets.only(right: 18),
+              padding: const EdgeInsets.only(right: 18),
               child: Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.tune),
+                    icon: const Icon(Icons.tune),
                     onPressed: () {
                       _selectCountry();
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.image_outlined),
+                    icon: const Icon(Icons.image_outlined),
                     onPressed: () {
                       setState(() {
                         showPersonalImages = !showPersonalImages;
@@ -127,7 +125,7 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.add),
+                    icon: const Icon(Icons.add),
                     onPressed: _addImage,
                   )
                 ],
@@ -138,7 +136,7 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: AnimatedSwitcher(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return SlideTransition(
               position: Tween<Offset>(
@@ -208,10 +206,10 @@ class ImageViewPage extends StatelessWidget {
   final int initialIndex;
 
   const ImageViewPage({
-    Key? key,
+    super.key,
     required this.imageUrls,
     required this.initialIndex,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

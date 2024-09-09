@@ -10,13 +10,13 @@ class TopLeaderboardBox extends StatelessWidget {
   final int index;
 
   const TopLeaderboardBox({
-    Key? key,
+    super.key,
     required this.name,
     required this.streak,
     this.isPrimary = false,
     this.imageUrl = 'https://via.placeholder.com/150',
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +63,10 @@ class TopLeaderboardBox extends StatelessWidget {
           child: Column(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                backgroundImage: const NetworkImage('https://via.placeholder.com/150'),
                 radius: isPrimary ? 35 : 25,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 name,
                 style: TextStyle(

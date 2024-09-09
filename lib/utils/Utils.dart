@@ -1,4 +1,3 @@
-import 'package:lingui_mobile/models/discussion.dart';
 
 const Map<String, String> languageToFlagCode = {
   'English': 'us',

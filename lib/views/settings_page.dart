@@ -21,13 +21,13 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
-          AccountSection(),
-          NotificationsSection(),
+          const AccountSection(),
+          const NotificationsSection(),
           ExpansionTile(
-            title: Row(
+            title: const Row(
               children: [
                 Icon(Icons.security_update_good_rounded),
-                const SizedBox(width: 16.0),
+                SizedBox(width: 16.0),
                 Text('Privacy & Security')
               ],
             ),
@@ -38,18 +38,18 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
 
-          Divider(),
+          const Divider(),
 
           SettingItem(icon: Icons.privacy_tip, title: 'Legal & Privacy', onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LegalPrivacyPage()),
+              MaterialPageRoute(builder: (context) => const LegalPrivacyPage()),
             );
           }),
           SettingItem(icon: Icons.support, title: 'Support & Help', onTap: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SupportHelpPage())
+                MaterialPageRoute(builder: (context) => const SupportHelpPage())
             );
           }),
           SettingItem(icon: Icons.work, title: 'Jobs', onTap: () {
@@ -131,7 +131,7 @@ class SettingItem extends StatelessWidget {
   final bool expansionTile;
   final VoidCallback onTap;
 
-  SettingItem({required this.icon, required this.title, this.expansionTile = false, required this.onTap});
+  const SettingItem({super.key, required this.icon, required this.title, this.expansionTile = false, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,7 @@ class SettingItem extends StatelessWidget {
               Text(title),
             ],
           ),
-        children: [
+        children: const [
           Text("Option 1")
         ],
       );
@@ -157,7 +157,7 @@ class SettingItem extends StatelessWidget {
             Text(title)
           ],
         ),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: const Icon(Icons.arrow_forward_ios),
         onTap: onTap,
       );
     }
@@ -212,9 +212,9 @@ class _AccountSectionState extends State<AccountSection> {
       ),
       children: [
         ListTile(
-          title: Text("Email"),
-          subtitle: Text("example@example.com"), // Remplacez par l'email actuel
-          trailing: Icon(Icons.arrow_forward_ios),
+          title: const Text("Email"),
+          subtitle: const Text("example@example.com"), // Remplacez par l'email actuel
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             Navigator.push(
               context,
@@ -223,8 +223,8 @@ class _AccountSectionState extends State<AccountSection> {
           },
         ),
         ListTile(
-          title: Text("Password"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          title: const Text("Password"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             Navigator.push(
               context,
@@ -233,9 +233,9 @@ class _AccountSectionState extends State<AccountSection> {
           },
         ),
         ListTile(
-          title: Text("Link Google Account"),
-          subtitle: Text("Not Linked"), // Remplacez par l'état actuel de l'association
-          trailing: Icon(Icons.arrow_forward_ios),
+          title: const Text("Link Google Account"),
+          subtitle: const Text("Not Linked"), // Remplacez par l'état actuel de l'association
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             Navigator.push(
               context,
@@ -244,9 +244,9 @@ class _AccountSectionState extends State<AccountSection> {
           },
         ),
         ListTile(
-          title: Text("Link Facebook Account"),
-          subtitle: Text("Not Linked"), // Remplacez par l'état actuel de l'association
-          trailing: Icon(Icons.arrow_forward_ios),
+          title: const Text("Link Facebook Account"),
+          subtitle: const Text("Not Linked"), // Remplacez par l'état actuel de l'association
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             Navigator.push(
               context,
