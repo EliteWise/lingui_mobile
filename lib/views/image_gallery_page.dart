@@ -18,7 +18,7 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
   List<String> listOfUrls = [
     "https://via.placeholder.com/600x400.png?text=Image+1",
     "https://via.placeholder.com/600x400.png?text=Image+1",
-    "https://via.placeholder.com/600x400.png?text=Image+1",
+    "https://dummyimage.com/1080x1920/000/fff",
     "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
     "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
     "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
