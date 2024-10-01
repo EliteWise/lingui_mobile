@@ -4,15 +4,18 @@ import 'package:lingui_mobile/firebase_options.dart';
 import 'package:lingui_mobile/views/country_folder_page.dart';
 import 'package:lingui_mobile/views/login_page.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'dart:io' show Platform;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if(Platform.isAndroid) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-  OneSignal.initialize("bc2db3a0-aac8-4457-9897-d763cd94ae4d");
-  OneSignal.Notifications.requestPermission(true);
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+    OneSignal.initialize("bc2db3a0-aac8-4457-9897-d763cd94ae4d");
+    OneSignal.Notifications.requestPermission(true);
+  }
 
   runApp(const LinguiMobile());
 }
