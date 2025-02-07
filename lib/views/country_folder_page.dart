@@ -25,7 +25,6 @@ class CountryFolderPage extends StatelessWidget {
       "Russia",
       "Italy",
       "Spain",
-      "United Kingdom",
       "South Korea",
       "South Africa",
       "Argentina",
@@ -68,6 +67,7 @@ class CountryFolderPage extends StatelessWidget {
         title: const Text("Albums by Country"),
       ),
       body: GridView.builder(
+        itemCount: availableCountries.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 4.0,
@@ -80,49 +80,60 @@ class CountryFolderPage extends StatelessWidget {
               child: Column(
                 children: [
                   Expanded(
-                      flex: 2,
-                      child: CachedNetworkImage(
-                        imageUrl: "https://via.placeholder.com/600x400.png?text=Image+$index",
-                        fit: BoxFit.cover,
-                      )
+                    flex: 2,
+                    child: CachedNetworkImage(
+                      imageUrl: "https://picsum.photos/600/400",
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
+                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                          Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    ),
                   ),
                   Expanded(
                     flex: 1,
-                      child: Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(availableCountries[index]),
-                            const SizedBox(width: 8),
-                            SvgPicture.asset(
-                              getFlagAsset(availableCountries[index]),
-                              package: 'country_icons',
-                              width: 12,
-                              height: 12,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              availableCountries[index],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                          ],
-                        ),
+                          ),
+                          SvgPicture.asset(
+                            getFlagAsset(availableCountries[index]),
+                            package: 'country_icons',
+                            width: 12,
+                            height: 12,
+                          ),
+                        ],
                       )
+                    ),
                   ),
                 ],
               ),
             ),
             onTap: () {
               Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => const ImageGalleryPage(),
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      var forwardTween = Tween<double>(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeInOut));
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => const ImageGalleryPage(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    var forwardTween = Tween<double>(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeInOut));
 
-                      return FadeTransition(
-                        opacity: animation.drive(forwardTween),
-                        child: child,
-                      );
-                    },
-                    transitionDuration: const Duration(milliseconds: 500),
-                    reverseTransitionDuration: const Duration(milliseconds: 0),
-                  ),
+                    return FadeTransition(
+                      opacity: animation.drive(forwardTween),
+                      child: child,
+                    );
+                  },
+                  transitionDuration: const Duration(milliseconds: 500),
+                  reverseTransitionDuration: const Duration(milliseconds: 0),
+                ),
               );
             },
           );
