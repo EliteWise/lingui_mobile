@@ -1,34 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/room_service.dart';
 
 import '../models/discussion.dart';
+import '../states/discussion_notifier.dart';
 import 'chat_page.dart';
 
-class DiscussionPage extends StatefulWidget {
+class DiscussionPage extends ConsumerStatefulWidget {
   const DiscussionPage({super.key});
 
 
   @override
-  State<StatefulWidget> createState() => _DiscussionPageState();
+  ConsumerState<DiscussionPage> createState() => _DiscussionPageState();
 
 
 }
 
-class _DiscussionPageState extends State<DiscussionPage> {
+class _DiscussionPageState extends ConsumerState<DiscussionPage> {
 
   // TODO: Consider using state management package like Provider or Riverpod
 
-  List discussions = [];
-
-  void handleAddDiscussion(Discussion newDiscussion) {
-    setState(() {
-      discussions.add(newDiscussion);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final discussions = ref.watch(discussionProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Discussions'),
@@ -99,36 +94,6 @@ class _DiscussionPageState extends State<DiscussionPage> {
             );
           },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        // TODO: add chat creation modal with contacts list to add new chat with new participants
-        onPressed: () async {
-
-          try {
-
-            var newDiscussion = Discussion(
-              id: '',
-              title: 'Discussion',
-              participants: ["Participant"],
-              lastMessage: '?',
-              lastMessageTime: DateTime.now(),
-              isRead: false,
-              type: 'individual',
-            );
-
-            final roomId = await createRoom(newDiscussion);
-            newDiscussion.id = roomId;
-
-            handleAddDiscussion(newDiscussion);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChatPage(route: 'chat', discussionId: roomId))
-            );
-          } catch (e) {
-            print('Failed to create room: $e');
-          }
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }

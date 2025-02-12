@@ -34,7 +34,6 @@ class ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
-    print('discu' + widget.discussionId);
     _messagingRequest = MessagingRequest(route: widget.route, roomId: widget.discussionId);
     _messagingRequest.onMessageReceived = _handleIncomingMessage;
   }

@@ -31,11 +31,11 @@ class MessagingRequest {
       },
       onError: (error) {
         print('WebSocket error: $error');
-        _scheduleReconnect();
+        //_scheduleReconnect();
       },
       onDone: () {
         print('WebSocket connection closed');
-        _scheduleReconnect();
+        //_scheduleReconnect();
       },
     );
   }

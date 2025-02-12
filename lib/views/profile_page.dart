@@ -1,12 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/states/discussion_notifier.dart';
 import 'package:lingui_mobile/widgets/language_card.dart';
 
+import '../models/discussion.dart';
+import '../services/room_service.dart';
 import '../utils/Utils.dart';
+import 'chat_page.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
 
   final String name;
   final Image picture;
@@ -76,7 +81,7 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
+class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProviderStateMixin {
 
   late String name;
   late Image picture;
@@ -128,6 +133,37 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     _animation = Tween(begin: 0.25, end: 1.0).animate(_controller);
   }
 
+  void enterChat() async {
+    try {
+
+      var newDiscussion = Discussion(
+        id: '',
+        title: 'Discussion',
+        participants: ["Participant"],
+        lastMessage: '?',
+        lastMessageTime: DateTime.now(),
+        isRead: false,
+        type: 'individual',
+      );
+
+      final roomId = await createRoom(newDiscussion);
+      newDiscussion.id = roomId;
+
+      final discussions = ref.watch(discussionProvider);
+
+      if(!discussions.any((d) => d.id == newDiscussion.id)) {
+        ref.read(discussionProvider.notifier).addDiscussion(newDiscussion);
+      }
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ChatPage(route: 'chat', discussionId: roomId))
+      );
+    } catch (e) {
+      print('Failed to create room: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -150,6 +186,13 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
         title: Row(
           children: [
             Text(name),
+            const Spacer(),
+            new IconButton(
+                onPressed: () async {
+                  enterChat();
+                },
+                icon: const Icon(Icons.chat, color: Colors.black)
+            )
           ],
         ),
       ),
@@ -264,6 +307,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amber,
+        // TODO: add chat creation modal with contacts list to add new chat with new participants
+        onPressed: () async {
+          enterChat();
+        },
+        child: const Icon(Icons.chat, color: Colors.black),
       ),
     );
   }
