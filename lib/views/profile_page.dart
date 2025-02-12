@@ -51,7 +51,7 @@ class ProfilePage extends StatefulWidget {
     super.key,
     this.name = 'Test User',
     this.picture = const Image(
-      image: NetworkImage('https://via.placeholder.com/150'),
+      image: NetworkImage('https://picsum.photos/150'),
     ),
     this.followers = 100,
     this.following = 50,

@@ -66,7 +66,7 @@ class LeaderboardPage extends StatelessWidget {
                   name: data['name'] ?? 'Unknown',
                   streak: data['streak'] ?? 0,
                   isPrimary: index == 1,
-                  imageUrl: 'https://via.placeholder.com/150',
+                  imageUrl: 'https://picsum.photos/150',
                   index: index + 1,
                 );
               }).take(3).toList(),
@@ -90,7 +90,7 @@ class LeaderboardPage extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           const CircleAvatar(
-                            backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                            backgroundImage: NetworkImage('https://picsum.photos/150'),
                             radius: 25,
                           ),
                         ],

@@ -16,8 +16,8 @@ class ImageGalleryPage extends StatefulWidget {
 class _ImageGalleryPageState extends State<ImageGalleryPage> {
 
   List<String> listOfUrls = [
-    "https://via.placeholder.com/600x400.png?text=Image+1",
-    "https://via.placeholder.com/600x400.png?text=Image+1",
+    "https://picsum.photos/600/400",
+    "https://picsum.photos/600/400",
     "https://dummyimage.com/1080x1920/000/fff",
     "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
     "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
@@ -47,7 +47,7 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
     final List<XFile> images = await picker.pickMultiImage(limit: 4);
     setState(() {
       for(var image in images) {
-        listOfUrls.add("https://via.placeholder.com/600x400.png?text=Image+1"); // image.path
+        listOfUrls.add("https://picsum.photos/600/400"); // image.path
       }
     });
     }

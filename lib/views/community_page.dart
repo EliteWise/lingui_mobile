@@ -25,7 +25,7 @@ class _CommunityPageState extends State<CommunityPage> {
               children: [
                 const SizedBox(height: 12),
                 CommunityProfile(
-                  imageUrl: 'https://via.placeholder.com/600x400.png?text=Image+$index',
+                  imageUrl: 'https://picsum.photos/600/400',
                   name: 'Name',
                   age: 26,
                   nativeLanguage: 'French',

@@ -14,7 +14,7 @@ class TopLeaderboardBox extends StatelessWidget {
     required this.name,
     required this.streak,
     this.isPrimary = false,
-    this.imageUrl = 'https://via.placeholder.com/150',
+    this.imageUrl = 'https://picsum.photos/150',
     required this.index,
   });
 
@@ -63,7 +63,7 @@ class TopLeaderboardBox extends StatelessWidget {
           child: Column(
             children: [
               CircleAvatar(
-                backgroundImage: const NetworkImage('https://via.placeholder.com/150'),
+                backgroundImage: const NetworkImage('https://picsum.photos/150'),
                 radius: isPrimary ? 35 : 25,
               ),
               const SizedBox(height: 8),

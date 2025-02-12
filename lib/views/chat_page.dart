@@ -27,9 +27,37 @@ class ChatPage extends StatefulWidget {
 
 class ChatPageState extends State<ChatPage> {
   final List<types.Message> _messages = [];
-  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac', firstName: "Elite", lastName: "Elite", imageUrl: "https://via.placeholder.com/150");
+  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac', firstName: "Elite", lastName: "Elite", imageUrl: "https://picsum.photos/150");
   final TextEditingController _controller = TextEditingController();
   late MessagingRequest _messagingRequest;
+
+  @override
+  void initState() {
+    super.initState();
+    print('discu' + widget.discussionId);
+    _messagingRequest = MessagingRequest(route: widget.route, roomId: widget.discussionId);
+    _messagingRequest.onMessageReceived = _handleIncomingMessage;
+  }
+
+  void _handleIncomingMessage(String message) {
+    try {
+      final data = jsonDecode(message);
+
+      bool msgExists = _messages.any((msg) => msg.id == data['id']);
+      if(msgExists) return;
+
+      final textMessage = types.TextMessage(
+        author: types.User(id: data['author']),
+        createdAt: data['createdAt'],
+        id: data['id'],
+        text: data['text'],
+      );
+
+      _addMessage(textMessage);
+    } catch (e) {
+      print('Error parsing incoming message: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +129,13 @@ class ChatPageState extends State<ChatPage> {
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       text: message.text,
     );
+
+    _messagingRequest.sendMessage(jsonEncode({
+      'id': textMessage.id,
+      'text': textMessage.text,
+      'author': textMessage.author,
+      'createdAt': textMessage.createdAt
+    }));
 
     _addMessage(textMessage);
   }

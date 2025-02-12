@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lingui_mobile/views/login_email_page.dart';
+import 'package:lingui_mobile/views/navigation_page.dart';
 
 import 'discussion_page.dart';
 
@@ -47,7 +48,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => const DiscussionPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const NavigationPage()
                     ),
                   );
                 },

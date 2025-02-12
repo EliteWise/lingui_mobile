@@ -15,6 +15,7 @@ Future<String> createRoom(Discussion discussion) async {
 
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body);
+      print(responseJson);
       return responseJson['id'];
     } else {
       print('Failed to create room: ${response.statusCode}');

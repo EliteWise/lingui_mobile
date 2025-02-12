@@ -17,110 +17,9 @@ class DiscussionPage extends StatefulWidget {
 
 class _DiscussionPageState extends State<DiscussionPage> {
 
-  List<Discussion> discussions = [
-    Discussion(
-      id: '1',
-      title: 'Discussion 1',
-      participants: ['Alice', 'Bob'],
-      lastMessage: 'Salut Bob, comment ça va?',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 10)),
-      isRead: true,
-      type: 'individual',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '2',
-      title: 'Groupe Projet',
-      participants: ['Alice', 'Bob', 'Charlie'],
-      lastMessage: 'Prochaine réunion demain à 15h.',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 20)),
-      isRead: false,
-      type: 'group',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '3',
-      title: 'Discussion 3',
-      participants: ['Alice', 'Dave'],
-      lastMessage: 'Tu as fini le rapport?',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 30)),
-      isRead: true,
-      type: 'individual',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '4',
-      title: 'Groupe Famille',
-      participants: ['Alice', 'Maman', 'Papa', 'Soeur'],
-      lastMessage: 'Dîner de famille dimanche.',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 40)),
-      isRead: true,
-      type: 'group',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '5',
-      title: 'Discussion 5',
-      participants: ['Alice', 'Eve'],
-      lastMessage: 'On se voit ce weekend?',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 50)),
-      isRead: false,
-      type: 'individual',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '6',
-      title: 'Groupe Amis',
-      participants: ['Alice', 'Bob', 'Charlie', 'Dave'],
-      lastMessage: 'Qui est partant pour un ciné?',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 60)),
-      isRead: true,
-      type: 'group',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '7',
-      title: 'Discussion 7',
-      participants: ['Alice', 'Frank'],
-      lastMessage: 'N’oublie pas notre rendez-vous.',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 70)),
-      isRead: true,
-      type: 'individual',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '8',
-      title: 'Groupe Travail',
-      participants: ['Alice', 'Bob', 'Charlie', 'Dave', 'Eve'],
-      lastMessage: 'Rapport à rendre avant lundi.',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 80)),
-      isRead: false,
-      type: 'group',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '9',
-      title: 'Discussion 9',
-      participants: ['Alice', 'Grace'],
-      lastMessage: 'Bon anniversaire !',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 90)),
-      isRead: true,
-      type: 'individual',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-    Discussion(
-      id: '10',
-      title: 'Groupe Sport',
-      participants: ['Alice', 'Bob', 'Charlie', 'Eve'],
-      lastMessage: 'Entraînement annulé.',
-      lastMessageTime: DateTime.now().subtract(const Duration(minutes: 100)),
-      isRead: true,
-      type: 'group',
-      imageUrl: 'https://via.placeholder.com/150',
-    ),
-  ];
-
   // TODO: Consider using state management package like Provider or Riverpod
+
+  List discussions = [];
 
   void handleAddDiscussion(Discussion newDiscussion) {
     setState(() {
@@ -193,7 +92,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
                   },
                 ),
                 const SizedBox(
-                  width: 300, // Spécifiez la largeur souhaitée ici
+                  width: 300,
                   child: Divider()
                 ),
               ],
@@ -202,6 +101,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        // TODO: add chat creation modal with contacts list to add new chat with new participants
         onPressed: () async {
 
           try {
