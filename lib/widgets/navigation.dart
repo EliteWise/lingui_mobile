@@ -4,14 +4,14 @@ import 'package:lingui_mobile/views/country_folder_page.dart';
 import 'package:lingui_mobile/views/discussion_page.dart';
 import 'package:lingui_mobile/views/leaderboard_page.dart';
 
-class NavigationPage extends StatefulWidget {
-  const NavigationPage({super.key});
+class Navigation extends StatefulWidget {
+  const Navigation({super.key});
 
   @override
-  State<NavigationPage> createState() => _NavigationPageState();
+  State<Navigation> createState() => _NavigationPageState();
 }
 
-class _NavigationPageState extends State<NavigationPage> {
+class _NavigationPageState extends State<Navigation> {
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 30);
@@ -52,8 +52,8 @@ class _NavigationPageState extends State<NavigationPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[600],
-        unselectedItemColor: Colors.blueGrey,
+        selectedItemColor: const Color(0xFFFFA000), // Amber 700
+        unselectedItemColor: const Color(0xFF795548),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         onTap: _onPageChange,

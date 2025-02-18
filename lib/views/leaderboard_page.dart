@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/widgets/gradient_appbar.dart';
 
 import '../widgets/top_leaderboard_box.dart';
 
@@ -20,14 +21,14 @@ class LeaderboardPage extends StatelessWidget {
 
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: GradientAppBar(
         title: const Row(
           children: [
             Text('Leaderboard'),
             SizedBox(width: 8),
             FaIcon(
               FontAwesomeIcons.crown,
-              color: Colors.amber,
+              color: Color(0xFFFFA000), // Amber 700
               size: 23,
             )
           ],
@@ -38,8 +39,8 @@ class LeaderboardPage extends StatelessWidget {
 
               },
               child: const Text(
-                'Global',
-                  style: TextStyle(color: Colors.white)
+                  'Global',
+                  style: TextStyle(color: Color(0xFF795548))
               )
           ),
           TextButton(
@@ -48,7 +49,7 @@ class LeaderboardPage extends StatelessWidget {
               },
               child: const Text(
                   'Monthly',
-                  style: TextStyle(color: Colors.grey)
+                  style: TextStyle(color: Color(0xFF795548))
               )
           ),
         ],
@@ -101,7 +102,7 @@ class LeaderboardPage extends StatelessWidget {
                         children: [
                           Text(user['streak'].toString()),
                           const SizedBox(width: 8),
-                          const FaIcon(FontAwesomeIcons.crown, color: Colors.amber)
+                          const FaIcon(FontAwesomeIcons.crown, color: Color(0xFFFFA000)) // Amber 700
                         ],
                       ),
                     ),

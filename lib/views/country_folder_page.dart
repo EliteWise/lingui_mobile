@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lingui_mobile/views/image_gallery_page.dart';
+import 'package:lingui_mobile/widgets/gradient_appbar.dart';
 
 import '../utils/Utils.dart';
 
@@ -63,8 +64,8 @@ class CountryFolderPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Albums by Country"),
+      appBar: const GradientAppBar(
+          title: Text("Albums by Country"),
       ),
       body: GridView.builder(
         itemCount: availableCountries.length,

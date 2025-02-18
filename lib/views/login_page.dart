@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lingui_mobile/views/login_email_page.dart';
-import 'package:lingui_mobile/views/navigation_page.dart';
+import 'package:lingui_mobile/widgets/navigation.dart';
 
 import 'discussion_page.dart';
 
@@ -27,12 +27,19 @@ class LoginPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min, // Minimizes the size of Column to its children
             children: [
               const Text(
-                "Welcome on Lingui !",
+                "Welcome to Lingui !",
                 style: TextStyle(
                   color: Colors.white,
                   decoration: TextDecoration.none,
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 4.0,
+                      color: Colors.black45,
+                      offset: Offset(2.0, 2.0),
+                    ),
+                  ],
                 ),
                 textAlign: TextAlign.center, // Center align the text
               ),
@@ -42,13 +49,13 @@ class LoginPage extends StatelessWidget {
                 label: const Text('Login with Google',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFFA000)), // Amber 700
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => const NavigationPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const Navigation()
                     ),
                   );
                 },
@@ -59,7 +66,7 @@ class LoginPage extends StatelessWidget {
                 label: const Text('Login with Facebook',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFFA000)), // Amber 700
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
@@ -88,7 +95,7 @@ class LoginPage extends StatelessWidget {
                 label: const Text('Login with Email',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFFA000)), // Amber 700
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {

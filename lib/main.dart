@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/views/country_folder_page.dart';
 import 'package:lingui_mobile/views/login_page.dart';
-import 'package:lingui_mobile/views/navigation_page.dart';
+import 'package:lingui_mobile/widgets/navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

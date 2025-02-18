@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lingui_mobile/widgets/gradient_appbar.dart';
 import '../services/room_service.dart';
 
 import '../models/discussion.dart';
@@ -25,7 +26,7 @@ class _DiscussionPageState extends ConsumerState<DiscussionPage> {
   Widget build(BuildContext context) {
     final discussions = ref.watch(discussionProvider);
     return Scaffold(
-      appBar: AppBar(
+      appBar: GradientAppBar(
         title: const Text('Discussions'),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
@@ -33,7 +34,7 @@ class _DiscussionPageState extends ConsumerState<DiscussionPage> {
             hintText: 'Search...',
             elevation: WidgetStateProperty.all(0.5),
             shape: WidgetStateProperty.all(
-              LinearBorder.none
+                LinearBorder.none
             ),
             trailing: [
               Tooltip(
@@ -72,7 +73,7 @@ class _DiscussionPageState extends ConsumerState<DiscussionPage> {
                   subtitle: Text(discussions[index].lastMessage),
                   trailing: Text(
                     '${discussions[index].lastMessageTime.hour}:${discussions[index].lastMessageTime.minute.toString().padLeft(2, '0')}',
-                    style: TextStyle(color: discussions[index].isRead ? Colors.grey : Colors.amber),
+                    style: TextStyle(color: discussions[index].isRead ? Colors.grey : const Color(0xFFFFA000)), // Amber 700
                   ),
                   onTap: () {
                     Navigator.push(

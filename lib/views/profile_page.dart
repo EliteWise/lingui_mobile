@@ -223,7 +223,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                   ),
                   const FaIcon(
                     FontAwesomeIcons.crown,
-                    color: Colors.amber,
+                    color: Color(0xFFFFA000), // Amber 700
                     size: 16,
                   ),
                   Center(
@@ -243,7 +243,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                           opacity: _animation.value,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber, // Button color
+                              backgroundColor: const Color(0xFFFFA000), // Amber 700, Button color
                             ),
                             onPressed: () {
 
@@ -309,7 +309,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amber,
+        backgroundColor: const Color(0xFFFFA000), // Amber 700
         // TODO: add chat creation modal with contacts list to add new chat with new participants
         onPressed: () async {
           enterChat();

@@ -36,7 +36,7 @@ class TopLeaderboardBox extends StatelessWidget {
         style: const TextStyle(
          fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: Colors.deepOrangeAccent,
+          color: Colors.black,
           shadows: [
             Shadow(
               blurRadius: 10.0,
@@ -48,7 +48,7 @@ class TopLeaderboardBox extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: Colors.grey[300],
-            border: isPrimary ? Border.all(color: Colors.amber, width: 1.5) : null,
+            border: isPrimary ? Border.all(color: const Color(0xFFFFA000), width: 1.5) : null, // Amber 700
             borderRadius: BorderRadius.circular(8.0),
             boxShadow: [
               BoxShadow(
@@ -86,7 +86,7 @@ class TopLeaderboardBox extends StatelessWidget {
             margin: const EdgeInsets.only(top: 8.0),
             child: const FaIcon(
               FontAwesomeIcons.medal,
-              color: Colors.amber,
+              color: Color(0xFFFFA000), // Amber 700
               size: 23,
             ),
           )

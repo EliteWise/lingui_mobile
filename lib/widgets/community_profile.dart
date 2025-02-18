@@ -109,7 +109,7 @@ class CommunityProfile extends StatelessWidget {
                       if(isActive)
                         const FaIcon(
                             FontAwesomeIcons.crown,
-                            color: Colors.amber,
+                            color: Color(0xFFFFA000), // Amber 700
                             size: 16.0)
                     ],
                   ),
