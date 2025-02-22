@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/login-background.jpg'),
+            image: AssetImage('assets/images/login-background.jpeg'),
             fit: BoxFit.cover,
           )
         ),
@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min, // Minimizes the size of Column to its children
             children: [
               const Text(
-                "Welcome to Lingui !",
+                "Lingui",
                 style: TextStyle(
                   color: Colors.white,
                   decoration: TextDecoration.none,
@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                 label: const Text('Login with Google',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFFA000)), // Amber 700
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFF795548)),
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
                 label: const Text('Login with Facebook',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFFA000)), // Amber 700
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFF795548)),
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
@@ -83,7 +83,7 @@ class LoginPage extends StatelessWidget {
                   Expanded(
                     child: Divider(color: Colors.grey),
                   ),
-                  Text("  or  ", style: TextStyle(color: Colors.white)),
+                  Text("  or  ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                   Expanded(
                     child: Divider(color: Colors.grey),
                   ),
@@ -95,7 +95,7 @@ class LoginPage extends StatelessWidget {
                 label: const Text('Login with Email',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFFA000)), // Amber 700
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFF795548)),
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {

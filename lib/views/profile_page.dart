@@ -187,11 +187,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
           children: [
             Text(name),
             const Spacer(),
-            new IconButton(
+            IconButton(
                 onPressed: () async {
                   enterChat();
                 },
-                icon: const Icon(Icons.chat, color: Colors.black)
+                icon: const Icon(Icons.chat, color: Color(0xFF795548)),
             )
           ],
         ),
@@ -227,13 +227,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                     size: 16,
                   ),
                   Center(
-                    child: CircleAvatar(
-                      backgroundImage: picture.image,
-                      radius: 50,
-                    ),
-                  ),
-                  Positioned(
-                    child: Text(streak.toString()),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: picture.image,
+                          radius: 50,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(streak.toString()),
+                      ],
+                    )
                   ),
                   const SizedBox(height: 10),
                   AnimatedBuilder(
@@ -243,12 +247,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                           opacity: _animation.value,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFFA000), // Amber 700, Button color
+                              backgroundColor: const Color(0xFF795548), // Button color
                             ),
                             onPressed: () {
 
                             },
-                            child: const Text('Confirm Streak'),
+                            child: const Text('Confirm Streak', style: TextStyle(color: Colors.white)),
                           )
                         );
                       }),
@@ -309,12 +313,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFFFFA000), // Amber 700
+        backgroundColor: const Color(0xFF795548),
         // TODO: add chat creation modal with contacts list to add new chat with new participants
         onPressed: () async {
           enterChat();
         },
-        child: const Icon(Icons.chat, color: Colors.black),
+        child: const Icon(Icons.chat, color: Colors.white),
       ),
     );
   }

@@ -16,7 +16,19 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GradientAppBar(title: Text('Community')),
+      appBar: GradientAppBar(
+          title: const Text('Community'),
+        actions: [
+          IconButton(
+          icon: Image.asset(
+          "assets/images/globe-icon.png",
+          ),
+            onPressed: () {
+              print('globe');
+            },
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {

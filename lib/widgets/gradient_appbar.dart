@@ -24,6 +24,14 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 0,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
       ),
       bottom: bottom,

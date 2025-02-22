@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingui_mobile/widgets/navigation.dart';
 
 import 'discussion_page.dart';
 
@@ -11,7 +12,7 @@ class LoginEmailPage extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/login-background.jpg'),
+              image: AssetImage('assets/images/login-background.jpeg'),
               fit: BoxFit.cover,
             )
         ),
@@ -25,12 +26,19 @@ class LoginEmailPage extends StatelessWidget {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               const Text(
-                "Welcome on Lingui !",
+                "Lingui",
                 style: TextStyle(
                   color: Colors.white,
                   decoration: TextDecoration.none,
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 4.0,
+                      color: Colors.black45,
+                      offset: Offset(2.0, 2.0),
+                    ),
+                  ],
                 ),
                 textAlign: TextAlign.center, // Center align the text
               ),
@@ -59,13 +67,13 @@ class LoginEmailPage extends StatelessWidget {
                 label: const Text('Login with Email',
                     style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: const WidgetStatePropertyAll(Color(0xFFFF4500)),
+                  backgroundColor: const WidgetStatePropertyAll(Color(0xFF795548)),
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => const DiscussionPage()
+                    PageRouteBuilder(pageBuilder: (_, __, ___) => const Navigation()
                     ),
                   );
                 },
