@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lingui_mobile/states/provider_appwrite.dart';
 import 'package:lingui_mobile/views/country_folder_page.dart';
+import 'package:lingui_mobile/views/personal_info.dart';
 import 'package:lingui_mobile/views/login_page.dart';
 import 'package:lingui_mobile/widgets/navigation.dart';
 
@@ -22,7 +24,7 @@ class LinguiMobile extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LoginPage(),
+      home: const LanguageSelectionPage(),
     );
   }
 

@@ -1,22 +1,35 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/services/auth_service.dart';
+import 'package:lingui_mobile/states/provider_appwrite.dart';
 import 'package:lingui_mobile/views/login_email_page.dart';
 import 'package:lingui_mobile/widgets/navigation.dart';
 
 import 'discussion_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/login-background.jpeg'),
-            fit: BoxFit.cover,
-          )
+            image: DecorationImage(
+              image: AssetImage('assets/images/login-background.jpeg'),
+              fit: BoxFit.cover,
+            )
         ),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(16.0),
@@ -52,12 +65,25 @@ class LoginPage extends StatelessWidget {
                   backgroundColor: const WidgetStatePropertyAll(Color(0xFF795548)),
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => const Navigation()
-                    ),
-                  );
+                onPressed: () async {
+                  final authService = ref.read(authServiceProvider);
+                  //login(emailController.text, passwordController.text);
+
+                  var successSignIn = await authService.handleSignIn(emailController.text, passwordController.text, nameController.text);
+                  if(successSignIn) {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(pageBuilder: (_, __, ___) => const Navigation()
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Error Login In"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

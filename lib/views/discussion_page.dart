@@ -6,6 +6,7 @@ import '../services/room_service.dart';
 
 import '../models/discussion.dart';
 import '../states/discussion_notifier.dart';
+import '../states/provider_appwrite.dart';
 import 'chat_page.dart';
 
 class DiscussionPage extends ConsumerStatefulWidget {
@@ -25,6 +26,7 @@ class _DiscussionPageState extends ConsumerState<DiscussionPage> {
   @override
   Widget build(BuildContext context) {
     final discussions = ref.watch(discussionProvider);
+    final account = ref.watch(accountProvider);
     return Scaffold(
       appBar: GradientAppBar(
         title: const Text('Discussions'),
