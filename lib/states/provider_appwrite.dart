@@ -25,3 +25,4 @@ final userProvider = FutureProvider<User>((ref) async {
 final authServiceProvider = Provider<AuthService>((ref) {
   return AuthService(ref);
 });
+

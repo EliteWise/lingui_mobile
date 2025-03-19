@@ -4,6 +4,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lingui_mobile/services/request_service.dart';
 import 'package:lingui_mobile/states/provider_appwrite.dart';
 
 class AuthService with ChangeNotifier {
@@ -17,9 +18,23 @@ class AuthService with ChangeNotifier {
 
   GoogleSignInAccount? get user => _user;
   String? get error => _error;
-  bool get isSignedIn => _user != null;
+  bool get isGoogleSignedIn => _user != null;
 
   AuthService(this.ref) : _account = ref.read(accountProvider);
+
+  Future<bool> get isAppwriteSignedIn async {
+    try {
+      await _account.get();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> userExists(String email) async {
+    var response = await get('/user/exists?email=$email');
+    return response != null && response['exists'] == true;
+  }
 
   // Used to login with Email
   Future<void> login(String email, String password) async {
@@ -30,10 +45,10 @@ class AuthService with ChangeNotifier {
     }
   }
 
-  Future<void> register(String email, String password, String name) async {
+  Future<void> register(String email, String password) async {
     try {
       await _account.create(
-          userId: ID.unique(), email: email, password: password, name: name);
+          userId: ID.unique(), email: email, password: password);
     } catch (e) {
       if (e is AppwriteException && e.code == 409) {
         print("User already exist");
@@ -58,7 +73,7 @@ class AuthService with ChangeNotifier {
         await _account.get();
       } catch (e) {
         if (e is AppwriteException) {
-          await register(email, password, name);
+          await register(email, password);
         } else {
           rethrow;
         }

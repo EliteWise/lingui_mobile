@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lingui_mobile/services/auth_service.dart';
+import 'package:lingui_mobile/states/provider_appwrite.dart';
 import 'package:lingui_mobile/widgets/navigation.dart';
 
 import 'discussion_page.dart';
 
-class LoginEmailPage extends StatelessWidget {
+class LoginEmailPage extends ConsumerStatefulWidget {
   const LoginEmailPage({super.key});
+
+  @override
+  _LoginEmailPageState createState() => _LoginEmailPageState();
+}
+
+class _LoginEmailPageState extends ConsumerState<LoginEmailPage> {
+
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +82,25 @@ class LoginEmailPage extends StatelessWidget {
                   backgroundColor: const WidgetStatePropertyAll(Color(0xFF795548)),
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  // TODO: move all that to a dedicated method (-> inside auth service)
+                  final authService = ref.read(authServiceProvider);
+                  if (await authService.userExists(email)) {
+                    await authService.login(email, password);
+                  } else {
+                    await authService.register(email, password);
+                  }
+
+                  if(!(await authService.isAppwriteSignedIn)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('An error has been encountered, please retry'))
+                    );
+                    return;
+                  }
+
                   Navigator.push(
                     context,
-                    PageRouteBuilder(pageBuilder: (_, __, ___) => const Navigation()
+                    MaterialPageRoute(builder: (_) => const Navigation()
                     ),
                   );
                 },
