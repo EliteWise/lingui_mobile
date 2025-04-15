@@ -121,7 +121,7 @@ class CommunityProfile extends StatelessWidget {
                     children: [
                       const Text('Native: '),
                       SvgPicture.asset(
-                        getFlagAsset(nativeLanguage),
+                        LanguageList.getFlagAsset(nativeLanguage),
                         package: 'country_icons',
                         width: 12,
                         height: 12,
@@ -129,7 +129,7 @@ class CommunityProfile extends StatelessWidget {
                       const SizedBox(width: 8),
                       const Text('Learn: '),
                       SvgPicture.asset(
-                        getFlagAsset(learningLanguage),
+                        LanguageList.getFlagAsset(learningLanguage),
                         package: 'country_icons',
                         width: 12,
                         height: 12,

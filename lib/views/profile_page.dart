@@ -208,7 +208,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                     children: [
                       const SizedBox(width: 5),
                       SvgPicture.asset(
-                        getFlagAsset("French"),
+                        LanguageList.getFlagAsset("French"),
                         package: 'country_icons',
                         width: 18,
                         height: 18,

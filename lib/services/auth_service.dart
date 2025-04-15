@@ -4,102 +4,38 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lingui_mobile/services/appwrite_auth_service.dart';
+import 'package:lingui_mobile/services/google_auth_service.dart';
 import 'package:lingui_mobile/services/request_service.dart';
 import 'package:lingui_mobile/states/provider_appwrite.dart';
 
-class AuthService with ChangeNotifier {
+class AuthService {
 
-  late final Ref ref;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final Account _account;
+  final GoogleAuthService _googleAuth;
+  final AppwriteAuthService _appwriteAuth;
 
-  GoogleSignInAccount? _user;
-  String? _error;
+  AuthService(this._googleAuth, this._appwriteAuth);
 
-  GoogleSignInAccount? get user => _user;
-  String? get error => _error;
-  bool get isGoogleSignedIn => _user != null;
-
-  AuthService(this.ref) : _account = ref.read(accountProvider);
-
-  Future<bool> get isAppwriteSignedIn async {
-    try {
-      await _account.get();
-      return true;
-    } catch (e) {
-      return false;
-    }
+  Future<bool> get isSignedIn async {
+    return await _appwriteAuth.isSignedIn || _googleAuth.isSignedIn;
   }
 
-  Future<bool> userExists(String email) async {
-    var response = await get('/user/exists?email=$email');
-    return response != null && response['exists'] == true;
+  Future<bool> authenticateWithEmail(String email, String password) async {
+    return await _appwriteAuth.userExists(email)
+        ? await _appwriteAuth.login(email, password)
+        : await _appwriteAuth.register(email, password);
   }
 
-  // Used to login with Email
-  Future<void> login(String email, String password) async {
-    try {
-      await _account.createEmailPasswordSession(email: email, password: password);
-    } catch (e) {
-      print("Login Error: $e");
-    }
+  Future<bool> authenticateWithGoogle() async {
+    bool googleSuccess = await _googleAuth.login();
+    if (!googleSuccess) return false;
+    return true;
   }
 
-  Future<void> register(String email, String password) async {
-    try {
-      await _account.create(
-          userId: ID.unique(), email: email, password: password);
-    } catch (e) {
-      if (e is AppwriteException && e.code == 409) {
-        print("User already exist");
-      }
-    }
 
-    await login(email, password);
-  }
-
-  Future<bool> handleSignIn(email, password, name) async {
-    try {
-      _error = null;
-
-      // Google Connection
-      _user = await _googleSignIn.signIn();
-      if(_user == null) return false;
-
-      // Create appwrite session with Google OAuth
-      await _account.createOAuth2Session(provider: OAuthProvider.google);
-
-      try {
-        await _account.get();
-      } catch (e) {
-        if (e is AppwriteException) {
-          await register(email, password);
-        } else {
-          rethrow;
-        }
-      }
-
-      notifyListeners();
-      return true;
-    } catch(error) {
-      _error = 'Failed to sign in with Google: $error';
-      print(error);
-      notifyListeners();
-      return false;
-    }
-  }
-
-  Future<void> handleSignOut() async {
-    try {
-      await _googleSignIn.signOut();
-      await _account.deleteSession(sessionId: 'current');
-      _user = null;
-      notifyListeners();
-    } catch(error) {
-      _error = 'Failed to sign out with Google: $error';
-      print(error);
-      notifyListeners();
-    }
+  Future<void> signOut() async {
+    await _googleAuth.signOut();
+    await _appwriteAuth.signOut();
   }
 }
 

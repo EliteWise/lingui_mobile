@@ -17,9 +17,6 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,23 +64,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
                 onPressed: () async {
                   final authService = ref.read(authServiceProvider);
-                  //login(emailController.text, passwordController.text);
+                  bool isAuthenticated = await authService.authenticateWithGoogle();
 
-                  var successSignIn = await authService.handleSignIn(emailController.text, passwordController.text, nameController.text);
-                  if(successSignIn) {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(pageBuilder: (_, __, ___) => const Navigation()
-                      ),
-                    );
-                  } else {
+                  if (!isAuthenticated) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Error Login In"),
-                        backgroundColor: Colors.red,
-                      ),
+                        const SnackBar(content: Text('Authentication failed. Please try again.'))
                     );
+                    return;
                   }
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const Navigation()
+                    ),
+                  );
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

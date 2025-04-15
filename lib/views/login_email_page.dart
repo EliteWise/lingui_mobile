@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/services/auth_service.dart';
 import 'package:lingui_mobile/states/provider_appwrite.dart';
+import 'package:lingui_mobile/views/onboarding/profile_info_page.dart';
+import 'package:lingui_mobile/views/onboarding/languages_selection_page.dart';
+import 'package:lingui_mobile/views/onboarding/profile_info_page.dart';
 import 'package:lingui_mobile/widgets/navigation.dart';
 
 import 'discussion_page.dart';
@@ -15,8 +18,9 @@ class LoginEmailPage extends ConsumerStatefulWidget {
 
 class _LoginEmailPageState extends ConsumerState<LoginEmailPage> {
 
-  late String email;
-  late String password;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  late bool _loginCooldown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +59,19 @@ class _LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                 textAlign: TextAlign.center, // Center align the text
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Username',
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  hintText: 'Email',
                   border: InputBorder.none,
                   filled: true,
                   fillColor: Color(0xFFFFFFFF),
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04), // Add space between elements
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(
                   hintText: 'Password',
                   border: InputBorder.none,
                   filled: true,
@@ -83,25 +89,49 @@ class _LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                   minimumSize: WidgetStateProperty.all(const Size(200, 45)),
                 ),
                 onPressed: () async {
-                  // TODO: move all that to a dedicated method (-> inside auth service)
+                  if (_loginCooldown) return;
+
+                  _loginCooldown = true;
+                  Future.delayed(const Duration(seconds: 2), () => _loginCooldown = false);
                   final authService = ref.read(authServiceProvider);
-                  if (await authService.userExists(email)) {
-                    await authService.login(email, password);
-                  } else {
-                    await authService.register(email, password);
+
+                  final email = emailController.text.trim();
+                  final password = passwordController.text;
+
+                  if (email.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Please enter email and password'))
+                    );
+                    return;
                   }
 
-                  if(!(await authService.isAppwriteSignedIn)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('An error has been encountered, please retry'))
+                  bool isAuthenticated = await authService.authenticateWithEmail(email, password);
+
+                  if (!isAuthenticated) {
+                    Builder(
+                      builder: (context) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Authentication failed. Please try again.'))
+                        );
+                        return Container();
+                      },
                     );
                     return;
                   }
 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const Navigation()
-                    ),
+                    MaterialPageRoute(builder: (_) =>  LanguagesSelectionPage(
+                          onNext: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => ProfileInfoPage(
+                                onFinish: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const Navigation())
+                                )
+                            ))
+                          )
+                      ))
                   );
                 },
               ),

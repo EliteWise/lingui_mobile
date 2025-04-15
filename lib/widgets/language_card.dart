@@ -32,7 +32,7 @@ class LanguageCard extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        getFlagAsset(language),
+                        LanguageList.getFlagAsset(language),
                         package: 'country_icons',
                         width: 18,
                         height: 18,

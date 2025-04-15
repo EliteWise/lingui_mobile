@@ -107,7 +107,7 @@ class CountryFolderPage extends StatelessWidget {
                             ),
                           ),
                           SvgPicture.asset(
-                            getFlagAsset(availableCountries[index]),
+                            LanguageList.getFlagAsset(availableCountries[index]),
                             package: 'country_icons',
                             width: 12,
                             height: 12,
