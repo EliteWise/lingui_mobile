@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lingui_mobile/widgets/community_profile.dart';
+import 'package:lingui_mobile/features/community/presentation/widgets/community_profile.dart';
 
 void main() {
   testWidgets("Profile must contain basic infos", (tester) async {

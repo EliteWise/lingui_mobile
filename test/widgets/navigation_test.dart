@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lingui_mobile/widgets/navigation.dart';
+import 'package:lingui_mobile/common_widgets/navigation.dart';
 
 void main() {
   testWidgets('Navigation widget has 4 clickable icons', (tester) async {
