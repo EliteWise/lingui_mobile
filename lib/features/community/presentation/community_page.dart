@@ -13,6 +13,19 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
+
+  late List<Map<String, dynamic>> profiles;
+
+  @override
+  void initState() {
+    super.initState();
+    profiles = List.generate(10, (_) => {
+      'isActive': Random().nextBool(),
+      'isNewUser': Random().nextBool(),
+      'isConnected': Random().nextBool(),
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,22 +45,25 @@ class _CommunityPageState extends State<CommunityPage> {
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
+          final profile = profiles[index];
           return Column(
             children: [
               const SizedBox(height: 12),
-              CommunityProfile(
-                imageUrl: 'https://picsum.photos/600/400',
-                name: 'Name',
-                age: 26,
-                nativeLanguage: 'French',
-                learningLanguage: 'Spanish',
-                description: "Description de profil",
-                tags: const ["Learn", "Friendship"],
-                isActive: Random().nextBool(),
-                isNewUser: Random().nextBool(),
-                isConnected: Random().nextBool(),
+              RepaintBoundary(
+                key: ValueKey(profile),
+                child: CommunityProfile(
+                  imageUrl: 'https://picsum.photos/600/400',
+                  name: 'Name',
+                  age: 26,
+                  nativeLanguage: 'French',
+                  learningLanguage: 'Spanish',
+                  description: "Description de profil",
+                  tags: const ["Learn", "Friendship"],
+                  isActive: profile['isActive'],
+                  isNewUser: profile['isNewUser'],
+                  isConnected: profile['isConnected'],
+                ),
               )
-
             ],
           );
         },

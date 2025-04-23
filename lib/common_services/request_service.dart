@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:lingui_mobile/utils/network_interceptor.dart';
 
 final dio = Dio(BaseOptions(
   baseUrl: 'http://192.168.1.207:8080',
   connectTimeout: const Duration(seconds: 15),
   receiveTimeout: const Duration(seconds: 15)
-));
+))..interceptors.add(NetworkInterceptor());
 
 Future<dynamic> post(String path, Object? data) async {
   try {
