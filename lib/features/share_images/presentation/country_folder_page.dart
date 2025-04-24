@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lingui_mobile/features/share_images/presentation/image_gallery_page.dart';
 import 'package:lingui_mobile/common_widgets/gradient_appbar.dart';
 
-import '../../../utils/Utils.dart';
+import '../../../utils/utils.dart';
 
 class CountryFolderPage extends StatelessWidget {
   const CountryFolderPage({super.key});

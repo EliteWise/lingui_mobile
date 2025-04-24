@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../utils/Utils.dart';
+import '../../../../utils/utils.dart';
 import '../profile_page.dart';
 
 class CommunityProfile extends StatelessWidget {

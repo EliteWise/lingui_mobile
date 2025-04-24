@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/features/login/application/states/provider_appwrite.dart';
+import 'package:lingui_mobile/main.dart';
 
 import '../../../common_widgets/navigation.dart';
+import '../../chat/application/isar_service.dart';
+import '../../chat/data/message.dart';
 import '../../onboarding/presentation/languages_selection_page.dart';
 import '../../onboarding/presentation/profile_info_page.dart';
 

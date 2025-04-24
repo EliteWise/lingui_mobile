@@ -2,6 +2,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/features/chat/application/isar_service.dart';
+import 'package:lingui_mobile/features/chat/data/message.dart';
 import 'package:lingui_mobile/features/login/application/auth_service.dart';
 import 'package:lingui_mobile/features/login/application/states/provider_appwrite.dart';
 

@@ -8,7 +8,7 @@ import 'package:lingui_mobile/features/community/presentation/widgets/language_c
 
 import '../../chat/data/discussion.dart';
 import '../../chat/application/room_service.dart';
-import '../../../utils/Utils.dart';
+import '../../../utils/utils.dart';
 import '../../chat/presentation/chat_page.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
@@ -137,7 +137,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
     try {
 
       var newDiscussion = Discussion(
-        id: '',
         title: 'Discussion',
         participants: ["Participant"],
         lastMessage: '?',

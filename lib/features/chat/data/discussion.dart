@@ -1,6 +1,14 @@
+import 'package:isar/isar.dart';
+
+part 'discussion.g.dart';
+
+@collection
 class Discussion {
-  String id;
+  Id id = Isar.autoIncrement;
+
   String title;
+
+  @Index(type: IndexType.value)
   List<String> participants;
   String lastMessage;
   DateTime lastMessageTime;
@@ -9,7 +17,6 @@ class Discussion {
   String? imageUrl;
 
   Discussion({
-    required this.id,
     required this.title,
     required this.participants,
     required this.lastMessage,
@@ -21,7 +28,6 @@ class Discussion {
 
   factory Discussion.fromJson(Map<String, dynamic> json) {
     return Discussion(
-      id: json['id'],
       title: json['title'],
       participants: List<String>.from(json['participants']),
       lastMessage: json['lastMessage'],
@@ -34,7 +40,6 @@ class Discussion {
 
   Map<String, dynamic> toJson() {
     final data = {
-      'id': id,
       'title': title,
       'participants': participants,
       'lastMessage': lastMessage,

@@ -1,3 +1,4 @@
+import 'package:isar/isar.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:async';
 
@@ -7,7 +8,7 @@ class MessagingRequest {
   late WebSocketChannel channel;
   void Function(String message)? onMessageReceived;
   final String route;
-  final String roomId;
+  final Id roomId;
 
   MessagingRequest({required this.route, required this.roomId}) {
     _connectWebSocket();

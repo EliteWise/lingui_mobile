@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lingui_mobile/utils/Utils.dart';
+import 'package:lingui_mobile/utils/utils.dart';
 
 class LanguageCard extends StatelessWidget {
   final String language;

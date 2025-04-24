@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:image_picker/image_picker.dart';
-import 'package:lingui_mobile/features/chat/application/MessagingRequest.dart';
+import 'package:isar/isar.dart';
+import 'package:lingui_mobile/features/chat/application/messaging_request.dart';
 import 'package:lingui_mobile/themes/chat_theme.dart';
 
 String randomString() {
@@ -17,7 +18,7 @@ String randomString() {
 
 class ChatPage extends StatefulWidget {
   final String route;
-  final String discussionId;
+  final Id discussionId;
 
   const ChatPage({super.key, required this.route, required this.discussionId});
 

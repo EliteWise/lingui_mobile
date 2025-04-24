@@ -1,9 +1,11 @@
 // room_service.dart
 import 'dart:convert';
+import 'package:isar/isar.dart';
+
 import '../data/discussion.dart';
 import 'package:http/http.dart' as http;
 
-Future<String> createRoom(Discussion discussion) async {
+Future<Id> createRoom(Discussion discussion) async {
   try {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8080/createRoom'),
