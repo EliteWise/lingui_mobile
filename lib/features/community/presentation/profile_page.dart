@@ -10,72 +10,43 @@ import '../../chat/data/discussion.dart';
 import '../../chat/application/room_service.dart';
 import '../../../utils/utils.dart';
 import '../../chat/presentation/chat_page.dart';
+import '../data/profile.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
 
-  final String name;
-  final Image picture;
-  final int followers;
-  final int following;
-  final String birthdate;
-  final String location;
-  final String description;
-  final int imagesPosted;
-  final int audiosPosted;
-  final int audiosListened;
-  final int bookmarks;
-  final int streak;
-  final Map<String, int> learningLanguages;
-  final String nativeLanguage;
-  final int appreciations;
-  final bool isActiveBadge;
-  final int streakRank;
+  final Profile profile;
 
   const ProfilePage({
     super.key,
-    required this.name,
-    required this.picture,
-    required this.followers,
-    required this.following,
-    required this.birthdate,
-    required this.location,
-    required this.description,
-    required this.imagesPosted,
-    required this.audiosPosted,
-    required this.audiosListened,
-    required this.bookmarks,
-    required this.streak,
-    required this.learningLanguages,
-    required this.nativeLanguage,
-    required this.appreciations,
-    required this.isActiveBadge,
-    required this.streakRank,
+    required this.profile,
   });
 
-  const ProfilePage.test({
-    super.key,
-    this.name = 'Test User',
-    this.picture = const Image(
-      image: NetworkImage('https://picsum.photos/150'),
-    ),
-    this.followers = 100,
-    this.following = 50,
-    this.birthdate = '01-01-1990',
-    this.location = 'Miami, USA',
-    this.description = 'This is a test description.',
-    this.imagesPosted = 10,
-    this.audiosPosted = 5,
-    this.audiosListened = 20,
-    this.bookmarks = 15,
-    this.streak = 7,
-    this.learningLanguages = const {
-      'English': 1, 'Spanish': 2,
+  ProfilePage.test({super.key}) : profile = Profile(
+    id: 'test_id',
+    userId: 'test_user',
+    name: 'Test User',
+    pictureUrl: 'https://picsum.photos/150',
+    birthdate: DateTime(1990, 1, 1),
+    location: 'Miami, USA',
+    description: 'This is a test description.',
+    nativeLanguage: 'Spanish',
+    learningLanguages: {
+      'English': 1,
+      'Spanish': 2,
     },
-    this.nativeLanguage = "Spanish",
-    this.appreciations = 200,
-    this.isActiveBadge = true,
-    this.streakRank = 4000,
-  });
+    followers: 100,
+    following: 50,
+    streak: 7,
+    streakRank: 4000,
+    isActiveBadge: true,
+    imagesPosted: 10,
+    audiosPosted: 5,
+    audiosListened: 20,
+    bookmarks: 15,
+    appreciations: 200,
+    createdAt: null,
+    updatedAt: null
+  );
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -83,47 +54,12 @@ class ProfilePage extends ConsumerStatefulWidget {
 
 class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProviderStateMixin {
 
-  late String name;
-  late Image picture;
-  late int followers;
-  late int following;
-  late String birthdate;
-  late String location;
-  late String description;
-  late int imagesPosted;
-  late int audiosPosted;
-  late int audiosListened;
-  late int bookmarks;
-  late int streak;
-  late Map<String, int> learningLanguages;
-  late String nativeLanguage;
-  late int appreciations;
-  late bool isActiveBadge;
-  late int streakRank;
-
   late AnimationController _controller;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    name = widget.name;
-    picture = widget.picture;
-    followers = widget.followers;
-    following = widget.following;
-    birthdate = widget.birthdate;
-    location = widget.location;
-    description = widget.description;
-    imagesPosted = widget.imagesPosted;
-    audiosPosted = widget.audiosPosted;
-    audiosListened = widget.audiosListened;
-    bookmarks = widget.bookmarks;
-    streak = widget.streak;
-    learningLanguages = widget.learningLanguages;
-    nativeLanguage = widget.nativeLanguage;
-    appreciations = widget.appreciations;
-    isActiveBadge = widget.isActiveBadge;
-    streakRank = widget.streakRank;
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1, microseconds: 500),
@@ -167,14 +103,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
   Widget build(BuildContext context) {
 
     List<Map<String, dynamic>> stats = [
-      {'value': followers, 'label': 'Followers'},
-      {'value': following, 'label': 'Following'},
-      {'value': imagesPosted, 'label': 'Images Posted'},
+      {'value': widget.profile.followers, 'label': 'Followers'},
+      {'value': widget.profile.following, 'label': 'Following'},
+      {'value': widget.profile.imagesPosted, 'label': 'Images Posted'},
     ];
 
-    nativeLanguage = "French";
+    widget.profile.nativeLanguage = "French";
 
-    learningLanguages = {
+    widget.profile.learningLanguages = {
       "Spanish": 3,
       "German": 28,
       "Italian": 50,
@@ -184,7 +120,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
       appBar: AppBar(
         title: Row(
           children: [
-            Text(name),
+            Text(widget.profile.name),
             const Spacer(),
             IconButton(
                 onPressed: () async {
@@ -215,7 +151,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                       const SizedBox(width: 20),
                       const Text("French"),
                       const Spacer(),
-                      Text(appreciations.toString()),
+                      Text(widget.profile.appreciations.toString()),
                       const SizedBox(width: 10),
                       const Icon(Icons.favorite, color: Colors.redAccent)
                     ],
@@ -230,11 +166,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          backgroundImage: picture.image,
+                          backgroundImage: widget.profile.pictureUrl != null ?
+                          NetworkImage(widget.profile.pictureUrl!) : const AssetImage('assets/images/globe-icon.png') as ImageProvider,
                           radius: 50,
                         ),
                         const SizedBox(height: 8),
-                        Text(streak.toString()),
+                        Text(widget.profile.streak.toString()),
                       ],
                     )
                   ),
@@ -260,7 +197,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
               const SizedBox(height: 16),
               const Divider(),
               const SizedBox(height: 16),
-              Text(description),
+              Text(widget.profile.description),
               const SizedBox(height: 16),
               const Divider(),
               const SizedBox(height: 16),
@@ -299,7 +236,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
               const SizedBox(height: 16),
               Column(
                 children: [
-                  ...learningLanguages.entries.map((entry) {
+                  ...widget.profile.learningLanguages.entries.map((entry) {
                     return LanguageCard(language: entry.key, level: entry.value);
                   }),
                 ],

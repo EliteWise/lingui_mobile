@@ -37,7 +37,7 @@ class CommunityProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage.test()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage.test()));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

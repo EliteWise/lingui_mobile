@@ -5,11 +5,19 @@ class Profile {
   final String? pictureUrl;
   final DateTime? birthdate;
   final String? location;
-  final String? description;
-  final String nativeLanguage;
+  final String description;
+  late final String nativeLanguage;
+  late final Map<String, int> learningLanguages;
+  final int followers;
+  final int following;
   final int streak;
   final int? streakRank;
   final bool isActiveBadge;
+  final int imagesPosted;
+  final int audiosPosted;
+  final int audiosListened;
+  final int bookmarks;
+  final int appreciations;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -20,11 +28,19 @@ class Profile {
     this.pictureUrl,
     this.birthdate,
     this.location,
-    this.description,
+    required this.description,
     required this.nativeLanguage,
+    required this.learningLanguages,
+    this.followers = 0,
+    this.following = 0,
     this.streak = 0,
     this.streakRank,
     this.isActiveBadge = false,
+    this.imagesPosted = 0,
+    this.audiosPosted = 0,
+    this.audiosListened = 0,
+    this.bookmarks = 0,
+    this.appreciations = 0,
     this.createdAt,
     this.updatedAt,
   });
@@ -39,9 +55,17 @@ class Profile {
       location: json['location'],
       description: json['description'],
       nativeLanguage: json['native_language'],
+      learningLanguages: Map<String, int>.from(json['learning_languages'] ?? {}),
+      followers: json['followers'] ?? 0,
+      following: json['following'] ?? 0,
       streak: json['streak'] ?? 0,
       streakRank: json['streak_rank'],
       isActiveBadge: json['is_active_badge'] ?? false,
+      imagesPosted: json['images_posted'] ?? 0,
+      audiosPosted: json['audios_posted'] ?? 0,
+      audiosListened: json['audios_listened'] ?? 0,
+      bookmarks: json['bookmarks'] ?? 0,
+      appreciations: json['appreciations'] ?? 0,
       createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
       updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
     );
@@ -57,9 +81,17 @@ class Profile {
       'location': location,
       'description': description,
       'native_language': nativeLanguage,
+      'learning_languages': learningLanguages,
+      'followers': followers,
+      'following': following,
       'streak': streak,
       'streak_rank': streakRank,
       'is_active_badge': isActiveBadge,
+      'images_posted': imagesPosted,
+      'audios_posted': audiosPosted,
+      'audios_listened': audiosListened,
+      'bookmarks': bookmarks,
+      'appreciations': appreciations,
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
     };
