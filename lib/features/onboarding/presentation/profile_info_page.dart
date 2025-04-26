@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileInfoPage extends StatefulWidget {
-  final VoidCallback onFinish;
-  const ProfileInfoPage({super.key, required this.onFinish});
+  const ProfileInfoPage({super.key});
 
   @override
   State<ProfileInfoPage> createState() => _AvatarBadgesPageState();
@@ -94,7 +94,9 @@ class _AvatarBadgesPageState extends State<ProfileInfoPage> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: widget.onFinish,
+              onPressed: () {
+                context.go('/navigation');
+              },
               child: const Text('Finish'),
             ),
           ],

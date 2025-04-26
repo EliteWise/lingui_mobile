@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/features/chat/application/isar_service.dart';
-
-import 'features/login/presentation/login_page.dart';
+import 'package:lingui_mobile/router.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final isarService = IsarService();
@@ -20,14 +19,13 @@ class LinguiMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Lingui Mobile App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      navigatorKey: navigatorKey,
-      home: const LoginPage(),
     );
   }
 

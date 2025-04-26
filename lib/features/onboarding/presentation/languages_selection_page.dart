@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lingui_mobile/features/onboarding/presentation/widgets/language_picker.dart';
 import 'states/language_provider.dart';
 
 class LanguagesSelectionPage extends ConsumerStatefulWidget {
-  final VoidCallback onNext;
-  const LanguagesSelectionPage({super.key, required this.onNext});
+  const LanguagesSelectionPage({super.key});
 
   @override
   _LanguagesSelectionPageState createState() => _LanguagesSelectionPageState();
@@ -79,7 +79,7 @@ class _LanguagesSelectionPageState extends ConsumerState<LanguagesSelectionPage>
                   ),
                   onPressed: () {
                     if (native != null && learning != null) {
-                      widget.onNext();
+                      context.go('/profile_info');
                     } else {
                       setState(() => error = "Please select both languages.");
                     }

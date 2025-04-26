@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lingui_mobile/features/login/application/states/provider_appwrite.dart';
 import 'package:lingui_mobile/main.dart';
 
@@ -119,20 +120,7 @@ class _LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                     return;
                   }
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) =>  LanguagesSelectionPage(
-                          onNext: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => ProfileInfoPage(
-                                onFinish: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => const Navigation())
-                                )
-                            ))
-                          )
-                      ))
-                  );
+                  context.go('/languages_selection');
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
