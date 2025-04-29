@@ -120,7 +120,7 @@ class _LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                     return;
                   }
 
-                  context.go('/languages_selection');
+                  context.push('/languages_selection');
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

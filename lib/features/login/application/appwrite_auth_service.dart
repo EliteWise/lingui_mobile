@@ -16,7 +16,7 @@ class AppwriteAuthService {
   }
 
   Future<bool> userExists(String email) async {
-    var response = await get('/user/exists?email=$email');
+    var response = await get('/user/exists?email=$email', {});
     print(response);
     return response != null && response['exists'] == true;
   }

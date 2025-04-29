@@ -2,7 +2,9 @@ import 'package:custom_language_picker/custom_language_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lingui_mobile/features/onboarding/presentation/languages_selection_page.dart';
+import 'package:lingui_mobile/features/onboarding/presentation/profile_info_page.dart';
 import 'package:lingui_mobile/features/onboarding/presentation/states/language_provider.dart';
 
 void main() {
@@ -17,9 +19,7 @@ void main() {
         ],
         child: MaterialApp(
           navigatorKey: navKey,
-          home: LanguagesSelectionPage(
-            onNext: () {},
-          )
+          home: const LanguagesSelectionPage()
         ),
       )
     );
@@ -33,28 +33,38 @@ void main() {
   testWidgets("Should select native and learning languages and continue to next page", (tester) async {
     final navKey = GlobalKey<NavigatorState>();
 
+    final testRouter = GoRouter(
+      navigatorKey: navKey,
+      initialLocation: '/languages_selection',
+      routes: <RouteBase>[
+        GoRoute(
+          path: '/languages_selection',
+          builder: (_, __) => const LanguagesSelectionPage(),
+          routes: [
+            GoRoute(
+              path: 'profile_info',
+              builder: (_, __) => const ProfileInfoPage(),
+            ),
+          ],
+        ),
+      ],
+    );
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           nativeLanguageProvider.overrideWith((ref) => Language(code: LanguageCode.aa, name: "French", nativeName: "French", flagEmoji: "fr")),
           learningLanguageProvider.overrideWith((ref) => Language(code: LanguageCode.aa, name: "English", nativeName: "French", flagEmoji: "en")),
         ],
-        child: MaterialApp(
-          navigatorKey: navKey,
-          home: LanguagesSelectionPage(
-            onNext: () {
-              navKey.currentState?.push(MaterialPageRoute(
-                builder: (_) => const Scaffold(body: Text('Next Page')),
-              ));
-            },
-          ),
+        child: MaterialApp.router(
+          routerConfig: testRouter,
         ),
       ),
     );
 
     await tester.tap(find.text('Continue'));
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.text("Next Page"), findsOneWidget);
+    expect(find.text("Avatar & Badges"), findsOneWidget);
   });
 }

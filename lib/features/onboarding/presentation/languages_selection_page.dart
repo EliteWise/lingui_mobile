@@ -79,7 +79,7 @@ class _LanguagesSelectionPageState extends ConsumerState<LanguagesSelectionPage>
                   ),
                   onPressed: () {
                     if (native != null && learning != null) {
-                      context.go('/profile_info');
+                      context.push('/languages_selection/profile_info');
                     } else {
                       setState(() => error = "Please select both languages.");
                     }

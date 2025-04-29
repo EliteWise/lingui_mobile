@@ -7,9 +7,9 @@ final dio = Dio(BaseOptions(
   receiveTimeout: const Duration(seconds: 15)
 ))..interceptors.add(NetworkInterceptor());
 
-Future<dynamic> post(String path, Object? data) async {
+Future<dynamic> post(String path, Object? data, Map<String, String>? headers) async {
   try {
-    Response response = await dio.post(path, data: data);
+    Response response = await dio.post(path, data: data, options: Options(headers: headers));
     return response.data;
   } catch (e) {
     print('POST error: $e');
@@ -17,12 +17,32 @@ Future<dynamic> post(String path, Object? data) async {
   }
 }
 
-Future<dynamic> get(String path) async {
+Future<dynamic> put(String path, Object? data, Map<String, String>? headers) async {
   try {
-    Response response = await dio.get(path);
+    Response response = await dio.put(path, data: data, options: Options(headers: headers));
+    return response.data;
+  } catch (e) {
+    print('PUT error: $e');
+    return null;
+  }
+}
+
+Future<dynamic> get(String path, Map<String, String>? headers) async {
+  try {
+    Response response = await dio.get(path, options: Options(headers: headers));
     return response.data;
   } catch (e) {
     print('GET error: $e');
+    return null;
+  }
+}
+
+Future<dynamic> delete(String path, Map<String, String>? headers) async {
+  try {
+    Response response = await dio.delete(path, options: Options(headers: headers));
+    return response.data;
+  } catch (e) {
+    print('DELETE error: $e');
     return null;
   }
 }

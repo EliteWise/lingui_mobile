@@ -95,7 +95,30 @@ class _AvatarBadgesPageState extends State<ProfileInfoPage> {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                context.go('/navigation');
+                final messenger = ScaffoldMessenger.of(context);
+
+                if (selectedBadges.isNotEmpty && birthdate != null) {
+                  if (messenger.mounted) {
+                    messenger.hideCurrentMaterialBanner();
+                  }
+                  context.go('/navigation');
+                } else {
+
+                  messenger.showMaterialBanner(
+                    MaterialBanner(
+                      content: const Text('Please enter your birthdate, and select at least one badge.'),
+                      backgroundColor: Colors.redAccent,
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            messenger.hideCurrentMaterialBanner();
+                          },
+                          child: const Text(''),
+                        ),
+                      ],
+                    )
+                  );
+                }
               },
               child: const Text('Finish'),
             ),
