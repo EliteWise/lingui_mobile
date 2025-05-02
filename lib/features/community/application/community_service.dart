@@ -3,6 +3,10 @@ import 'package:lingui_mobile/utils/api_routes.dart';
 
 class CommunityService {
 
+  final RequestService dio;
+
+  CommunityService({required this.dio});
+
   Future<dynamic> fetchCommunity({int? age, String? gender, String? lang}) async {
     final queryParams = <String, String>{};
 
