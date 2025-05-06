@@ -2,11 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/common_widgets/gradient_appbar.dart';
-import '../application/room_service.dart';
-
-import '../data/discussion.dart';
+import '../../auth/application/states/auth_provider.dart';
 import '../../community/presentation/states/discussion_notifier.dart';
-import '../../login/application/states/provider_appwrite.dart';
 import 'chat_page.dart';
 
 class DiscussionPage extends ConsumerStatefulWidget {

@@ -1,13 +1,5 @@
-import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/enums.dart';
-import 'package:appwrite/models.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:lingui_mobile/features/login/application/appwrite_auth_service.dart';
-import 'package:lingui_mobile/features/login/application/google_auth_service.dart';
-import 'package:lingui_mobile/common_services/request_service.dart';
-import 'package:lingui_mobile/features/login/application/states/provider_appwrite.dart';
+import 'appwrite_auth_service.dart';
+import 'google_auth_service.dart';
 
 class AuthService {
 

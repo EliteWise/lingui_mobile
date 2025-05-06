@@ -17,7 +17,7 @@ class CommunityService {
     final uri = Uri.parse(ApiRoutes.getCommunity).replace(queryParameters: queryParams);
 
     try {
-      final response = await dio.getUri(uri);
+      final response = await dio.getUri(uri, null, method: "fetchCommunity");
       return response.data;
     } catch (e) {
       print('Error fetching community: $e');

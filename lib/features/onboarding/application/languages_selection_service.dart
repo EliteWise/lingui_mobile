@@ -9,10 +9,6 @@ class LanguagesSelectionService {
 
   Future<Response> addLanguages(String native, String learning) async {
     final data = {'native': native, 'learning': learning};
-    try {
-      return await dio.post(ApiRoutes.addLanguages, data, null);
-    } on DioException catch (e) {
-      throw Exception('[addLanguages] -> ${e.message}');
-    }
+    return await dio.post(ApiRoutes.addLanguages, data, null);
   }
 }

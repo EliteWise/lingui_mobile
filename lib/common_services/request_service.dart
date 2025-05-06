@@ -37,6 +37,15 @@ class RequestService {
     }
   }
 
+  Future<dynamic> getUri(Uri uri, Map<String, String>? headers, {String method = 'GET URI'}) async {
+    try {
+      Response response = await dio.getUri(uri, options: Options(headers: headers));
+      return response.data;
+    } catch (e) {
+      _handleError(e, method);
+    }
+  }
+
   Future<dynamic> delete(String path, Map<String, String>? headers, {String method = 'DELETE'}) async {
     try {
       Response response = await dio.delete(path, options: Options(headers: headers));

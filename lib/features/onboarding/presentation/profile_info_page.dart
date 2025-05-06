@@ -1,16 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lingui_mobile/features/onboarding/application/states/onboarding_provider.dart';
 
-class ProfileInfoPage extends StatefulWidget {
+class ProfileInfoPage extends ConsumerStatefulWidget {
   const ProfileInfoPage({super.key});
 
   @override
-  State<ProfileInfoPage> createState() => _AvatarBadgesPageState();
+  ConsumerState<ProfileInfoPage> createState() => _AvatarBadgesPageState();
 }
 
-class _AvatarBadgesPageState extends State<ProfileInfoPage> {
+class _AvatarBadgesPageState extends ConsumerState<ProfileInfoPage> {
   XFile? image;
   final List<String> allBadges = ['👋 Friendly', '🎓 Serious Learner', '🎤 Wants to speak', '📝 Prefers text'];
   final Set<String> selectedBadges = {};
@@ -101,6 +103,7 @@ class _AvatarBadgesPageState extends State<ProfileInfoPage> {
                   if (messenger.mounted) {
                     messenger.hideCurrentMaterialBanner();
                   }
+                  ref.read(profileInfoProvider).addProfileInfo(image, birthdate!, selectedBadges);
                   context.go('/navigation');
                 } else {
 

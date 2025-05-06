@@ -3,8 +3,9 @@ import 'package:lingui_mobile/common_services/request_service.dart';
 
 class AppwriteAuthService {
   final Account _account;
+  final RequestService dio;
 
-  AppwriteAuthService(this._account);
+  AppwriteAuthService(this._account, this.dio);
 
   Future<bool> get isSignedIn async {
     try {
@@ -16,7 +17,7 @@ class AppwriteAuthService {
   }
 
   Future<bool> userExists(String email) async {
-    var response = await get('/user/exists?email=$email', {});
+    var response = await dio.get('/user/exists?email=$email', null, method: "userExists");
     print(response);
     return response != null && response['exists'] == true;
   }
@@ -26,6 +27,8 @@ class AppwriteAuthService {
       print("Login in progress");
       if (await isSignedIn) return true;
       await _account.createEmailPasswordSession(email: email, password: password);
+      // TODO: send secret to backend to auth with appwrite.WithSession("")
+      _account.createJWT();
       return true;
     } catch (e) {
       print("Login Error: $e");

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lingui_mobile/common_widgets/navigation.dart';
 import 'package:lingui_mobile/features/community/presentation/profile_page.dart';
-import 'package:lingui_mobile/features/login/presentation/login_page.dart';
 import 'package:lingui_mobile/features/onboarding/presentation/languages_selection_page.dart';
 import 'package:lingui_mobile/features/onboarding/presentation/profile_info_page.dart';
 import 'package:lingui_mobile/features/settings/presentation/legal_privacy_page.dart';
 import 'package:lingui_mobile/features/settings/presentation/settings_page.dart';
 import 'package:lingui_mobile/features/settings/presentation/support_help_page.dart';
 
+import 'features/auth/presentation/login_page.dart';
 import 'features/community/data/profile.dart';
 
 final GoRouter router = GoRouter(

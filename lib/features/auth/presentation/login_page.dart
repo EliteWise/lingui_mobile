@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lingui_mobile/features/login/application/states/provider_appwrite.dart';
 
 import '../../../common_widgets/navigation.dart';
 import '../../chat/presentation/discussion_page.dart';
+import '../application/states/auth_provider.dart';
 import 'login_email_page.dart';
 
 class LoginPage extends ConsumerStatefulWidget {

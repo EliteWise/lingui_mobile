@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lingui_mobile/features/onboarding/presentation/widgets/language_picker.dart';
+import '../application/states/onboarding_provider.dart';
 import 'states/language_provider.dart';
 
 class LanguagesSelectionPage extends ConsumerStatefulWidget {
@@ -79,6 +80,7 @@ class _LanguagesSelectionPageState extends ConsumerState<LanguagesSelectionPage>
                   ),
                   onPressed: () {
                     if (native != null && learning != null) {
+                      ref.read(languageSelectionProvider).addLanguages(native.name, learning.name);
                       context.push('/languages_selection/profile_info');
                     } else {
                       setState(() => error = "Please select both languages.");

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/features/chat/application/states/chat_provider.dart';
 import 'package:lingui_mobile/features/community/presentation/states/discussion_notifier.dart';
 import 'package:lingui_mobile/features/community/presentation/widgets/language_card.dart';
 
@@ -81,7 +82,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
         type: 'individual',
       );
 
-      final roomId = await createRoom(newDiscussion);
+      final roomId = await ref.read(roomProvider).createRoom(newDiscussion);
       newDiscussion.id = roomId;
 
       final discussions = ref.watch(discussionProvider);
