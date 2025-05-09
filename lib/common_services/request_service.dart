@@ -1,14 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:lingui_mobile/features/auth/application/appwrite_auth_service.dart';
 import 'package:lingui_mobile/utils/network_interceptor.dart';
 
 class RequestService {
   final Dio dio;
+  final AppwriteAuthService? appwriteAuthService;
 
-  RequestService() : dio = Dio(BaseOptions(
+  RequestService({this.appwriteAuthService}) : dio = Dio(BaseOptions(
       baseUrl: 'http://192.168.1.207:8080',
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15)
-  ))..interceptors.add(NetworkInterceptor());
+  )) {
+    if (appwriteAuthService != null) {
+      dio.interceptors.add(NetworkInterceptor(getJwt: appwriteAuthService!.createJWT));
+    }
+  }
 
   Future<dynamic> post(String path, Object? data, Map<String, String>? headers, {String method = 'POST'}) async {
     try {

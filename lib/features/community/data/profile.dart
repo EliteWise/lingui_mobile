@@ -45,6 +45,29 @@ class Profile {
     this.updatedAt,
   });
 
+  Profile.languages({
+    required this.nativeLanguage,
+    required this.learningLanguages,
+  })  : id = '',
+        userId = '',
+        name = '',
+        description = '',
+        pictureUrl = null,
+        birthdate = null,
+        location = null,
+        followers = 0,
+        following = 0,
+        streak = 0,
+        streakRank = null,
+        isActiveBadge = false,
+        imagesPosted = 0,
+        audiosPosted = 0,
+        audiosListened = 0,
+        bookmarks = 0,
+        appreciations = 0,
+        createdAt = null,
+        updatedAt = null;
+
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
       id: json['id'],
@@ -81,7 +104,7 @@ class Profile {
       'location': location,
       'description': description,
       'native_language': nativeLanguage,
-      'learning_languages': learningLanguages,
+      'learning_languages': learningLanguages.entries.map((e) => '${e.key}:${e.value}').toList(),
       'followers': followers,
       'following': following,
       'streak': streak,

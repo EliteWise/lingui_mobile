@@ -3,9 +3,8 @@ import 'package:lingui_mobile/common_services/request_service.dart';
 
 class AppwriteAuthService {
   final Account _account;
-  final RequestService dio;
 
-  AppwriteAuthService(this._account, this.dio);
+  AppwriteAuthService(this._account);
 
   Future<bool> get isSignedIn async {
     try {
@@ -14,12 +13,6 @@ class AppwriteAuthService {
     } catch (e) {
       return false;
     }
-  }
-
-  Future<bool> userExists(String email) async {
-    var response = await dio.get('/user/exists?email=$email', null, method: "userExists");
-    print(response);
-    return response != null && response['exists'] == true;
   }
 
   Future<bool> login(String email, String password) async {
@@ -46,6 +39,16 @@ class AppwriteAuthService {
       print("Register error");
       print(e);
       return false;
+    }
+  }
+
+  Future<String> createJWT() async {
+    try {
+      final jwtObject = await _account.createJWT();
+      return jwtObject.jwt;
+    } catch (e) {
+      print("JWT creation failed: $e");
+      return '';
     }
   }
 

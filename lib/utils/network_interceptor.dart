@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:lingui_mobile/main.dart';
 
 class NetworkInterceptor extends Interceptor {
+  final Future<String> Function() getJwt;
+
+  NetworkInterceptor({required this.getJwt});
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    final token = await getJwt();
+    if (token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    }
     print(options.method.toUpperCase());
     handler.next(options);
   }

@@ -1,6 +1,8 @@
 import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:appwrite/appwrite.dart';
+import 'package:lingui_mobile/common_services/request_service.dart';
+import 'package:lingui_mobile/features/auth/application/user_service.dart';
 
 import '../../../../common_services/states/request_provider.dart';
 import '../appwrite_auth_service.dart';
@@ -32,12 +34,17 @@ final googleAuthProvider = Provider<GoogleAuthService>((ref) {
 
 final appwriteAuthProvider = Provider<AppwriteAuthService>((ref) {
   final account = ref.watch(accountProvider);
+  return AppwriteAuthService(account);
+});
+
+final userAuthProvider = Provider<UserService>((ref) {
   final requestService = ref.watch(requestServiceProvider);
-  return AppwriteAuthService(account, requestService);
+  return UserService(requestService);
 });
 
 final authServiceProvider = Provider<AuthService>((ref) {
   final googleAuth = ref.watch(googleAuthProvider);
   final appwriteAuth = ref.watch(appwriteAuthProvider);
-  return AuthService(googleAuth, appwriteAuth);
+  final userAuth = ref.watch(userAuthProvider);
+  return AuthService(googleAuth, appwriteAuth, userAuth);
 });
