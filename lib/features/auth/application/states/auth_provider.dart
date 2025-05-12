@@ -48,3 +48,8 @@ final authServiceProvider = Provider<AuthService>((ref) {
   final userAuth = ref.watch(userAuthProvider);
   return AuthService(googleAuth, appwriteAuth, userAuth);
 });
+
+final storageProvider = Provider<Storage>((ref) {
+  final client = ref.watch(appwriteClientProvider);
+  return Storage(client);
+});

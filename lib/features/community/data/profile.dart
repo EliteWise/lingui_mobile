@@ -18,6 +18,7 @@ class Profile {
   final int audiosListened;
   final int bookmarks;
   final int appreciations;
+  final Set<String> badges;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -41,6 +42,7 @@ class Profile {
     this.audiosListened = 0,
     this.bookmarks = 0,
     this.appreciations = 0,
+    this.badges = const {},
     this.createdAt,
     this.updatedAt,
   });
@@ -54,6 +56,31 @@ class Profile {
         description = '',
         pictureUrl = null,
         birthdate = null,
+        location = null,
+        followers = 0,
+        following = 0,
+        streak = 0,
+        streakRank = null,
+        isActiveBadge = false,
+        imagesPosted = 0,
+        audiosPosted = 0,
+        audiosListened = 0,
+        bookmarks = 0,
+        appreciations = 0,
+        badges = const {},
+        createdAt = null,
+        updatedAt = null;
+
+  Profile.info({
+    this.pictureUrl,
+    required this.birthdate,
+    required this.badges,
+  })  : id = '',
+        userId = '',
+        name = '',
+        description = '',
+        nativeLanguage = '',
+        learningLanguages = {},
         location = null,
         followers = 0,
         following = 0,
@@ -89,6 +116,7 @@ class Profile {
       audiosListened: json['audios_listened'] ?? 0,
       bookmarks: json['bookmarks'] ?? 0,
       appreciations: json['appreciations'] ?? 0,
+      badges: Set<String>.from(json['badges'] ?? []),
       createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
       updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
     );
@@ -100,7 +128,7 @@ class Profile {
       'user_id': userId,
       'name': name,
       'picture_url': pictureUrl,
-      'birthdate': birthdate?.toIso8601String(),
+      'birthdate': birthdate?.toUtc().toIso8601String(),
       'location': location,
       'description': description,
       'native_language': nativeLanguage,
@@ -115,6 +143,7 @@ class Profile {
       'audios_listened': audiosListened,
       'bookmarks': bookmarks,
       'appreciations': appreciations,
+      'badges': badges.toList(),
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
     };

@@ -1,33 +1,28 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/common_widgets/gradient_appbar.dart';
+import 'package:lingui_mobile/features/community/application/states/community_provider.dart';
+import 'package:lingui_mobile/features/community/presentation/states/discussion_notifier.dart';
 
 import 'widgets/community_profile.dart';
 
-class CommunityPage extends StatefulWidget {
+class CommunityPage extends ConsumerStatefulWidget {
   const CommunityPage({super.key});
 
   @override
-  State<CommunityPage> createState() => _CommunityPageState();
+  ConsumerState<CommunityPage> createState() => _CommunityPageState();
 }
 
-class _CommunityPageState extends State<CommunityPage> {
+class _CommunityPageState extends ConsumerState<CommunityPage> {
 
   late List<Map<String, dynamic>> profiles;
 
   @override
-  void initState() {
-    super.initState();
-    profiles = List.generate(10, (_) => {
-      'isActive': Random().nextBool(),
-      'isNewUser': Random().nextBool(),
-      'isConnected': Random().nextBool(),
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final community = ref.read(communityProvider);
+
     return Scaffold(
       appBar: GradientAppBar(
           title: const Text('Community'),
@@ -42,31 +37,43 @@ class _CommunityPageState extends State<CommunityPage> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          final profile = profiles[index];
-          return Column(
-            children: [
-              const SizedBox(height: 12),
-              RepaintBoundary(
-                key: ValueKey(profile),
-                child: CommunityProfile(
-                  imageUrl: 'https://picsum.photos/600/400',
-                  name: 'Name',
-                  age: 26,
-                  nativeLanguage: 'French',
-                  learningLanguage: 'Spanish',
-                  description: "Description de profil",
-                  tags: const ["Learn", "Friendship"],
-                  isActive: profile['isActive'],
-                  isNewUser: profile['isNewUser'],
-                  isConnected: profile['isConnected'],
-                ),
-              )
-            ],
-          );
-        },
+      body: community.when(
+          data: (profiles) {
+            return ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                final community = ref.read(communityServiceProvider);
+                community.fetchCommunity();
+                final profile = profiles[index];
+                return Column(
+                  children: [
+                    const SizedBox(height: 12),
+                    RepaintBoundary(
+                      key: ValueKey(profile),
+                      child: CommunityProfile(
+                        imageUrl: profile.pictureUrl,
+                        name: profile.name,
+                        age: profile.birthdate,
+                        nativeLanguage: profile.nativeLanguage,
+                        learningLanguage: profile.learningLanguages.entries.first.key,
+                        description: profile.description,
+                        tags: profile.badges.toList() ?? [],
+                        isActive: profile.isActiveBadge,
+                        isNewUser: null,
+                        isConnected: null,
+                      ),
+                    )
+                  ],
+                );
+              },
+            );
+          },
+          error: (e, stackTrace) {
+            return Center(child: Text(e.toString()));
+          },
+          loading: () {
+            return const Center(child: CircularProgressIndicator());
+          }
       )
     );
   }
