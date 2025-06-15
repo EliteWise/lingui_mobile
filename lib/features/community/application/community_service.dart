@@ -19,7 +19,11 @@ class CommunityService {
 
     try {
       final response = await dio.getUri(uri, null, method: "fetchCommunity");
-      return response.data;
+      final List<dynamic> data = response;
+      print(data);
+      final profiles = data.map((profiles) => Profile.fromJson(profiles)).toList();
+      print("Profiles parsed: $profiles");
+      return profiles;
     } catch (e) {
       print('Error fetching community: $e');
       return [];

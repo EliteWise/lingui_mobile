@@ -23,8 +23,6 @@ class ProfilePage extends ConsumerStatefulWidget {
   });
 
   ProfilePage.test({super.key}) : profile = Profile(
-    id: 'test_id',
-    userId: 'test_user',
     name: 'Test User',
     pictureUrl: 'https://picsum.photos/150',
     birthdate: DateTime(1990, 1, 1),
@@ -45,8 +43,6 @@ class ProfilePage extends ConsumerStatefulWidget {
     audiosListened: 20,
     bookmarks: 15,
     appreciations: 200,
-    createdAt: null,
-    updatedAt: null
   );
 
   @override
@@ -68,6 +64,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
     )..repeat(reverse: true);
 
     _animation = Tween(begin: 0.25, end: 1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   void enterChat() async {
@@ -108,14 +110,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
       {'value': widget.profile.following, 'label': 'Following'},
       {'value': widget.profile.imagesPosted, 'label': 'Images Posted'},
     ];
-
-    widget.profile.nativeLanguage = "French";
-
-    widget.profile.learningLanguages = {
-      "Spanish": 3,
-      "German": 28,
-      "Italian": 50,
-    };
 
     return Scaffold(
       appBar: AppBar(
@@ -167,7 +161,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          backgroundImage: widget.profile.pictureUrl != null ?
+                          backgroundImage: (widget.profile.pictureUrl != null ?? false) ?
                           NetworkImage(widget.profile.pictureUrl!) : const AssetImage('assets/images/globe-icon.png') as ImageProvider,
                           radius: 50,
                         ),
@@ -198,7 +192,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
               const SizedBox(height: 16),
               const Divider(),
               const SizedBox(height: 16),
-              Text(widget.profile.description),
+              widget.profile.description != null
+                  ? Text(widget.profile.description!)
+                  : SizedBox.shrink(),
               const SizedBox(height: 16),
               const Divider(),
               const SizedBox(height: 16),

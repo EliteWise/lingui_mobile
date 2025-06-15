@@ -1,11 +1,9 @@
 class Profile {
-  final String id;
-  final String userId;
   final String name;
   final String? pictureUrl;
   final DateTime? birthdate;
   final String? location;
-  final String description;
+  final String? description;
   late final String nativeLanguage;
   late final Map<String, int> learningLanguages;
   final int followers;
@@ -19,12 +17,9 @@ class Profile {
   final int bookmarks;
   final int appreciations;
   final Set<String> badges;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final DateTime? lastSeen;
 
   Profile({
-    required this.id,
-    required this.userId,
     required this.name,
     this.pictureUrl,
     this.birthdate,
@@ -43,15 +38,13 @@ class Profile {
     this.bookmarks = 0,
     this.appreciations = 0,
     this.badges = const {},
-    this.createdAt,
-    this.updatedAt,
+    this.lastSeen,
   });
 
   Profile.languages({
     required this.nativeLanguage,
     required this.learningLanguages,
-  })  : id = '',
-        userId = '',
+  })  :
         name = '',
         description = '',
         pictureUrl = null,
@@ -68,15 +61,13 @@ class Profile {
         bookmarks = 0,
         appreciations = 0,
         badges = const {},
-        createdAt = null,
-        updatedAt = null;
+        lastSeen = null;
 
   Profile.info({
     this.pictureUrl,
     required this.birthdate,
     required this.badges,
-  })  : id = '',
-        userId = '',
+  })  :
         name = '',
         description = '',
         nativeLanguage = '',
@@ -92,20 +83,23 @@ class Profile {
         audiosListened = 0,
         bookmarks = 0,
         appreciations = 0,
-        createdAt = null,
-        updatedAt = null;
+        lastSeen = null;
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      id: json['id'],
-      userId: json['user_id'],
       name: json['name'],
-      pictureUrl: json['picture_url'],
+      pictureUrl: json['picture_url'] ?? '',
       birthdate: json['birthdate'] != null ? DateTime.parse(json['birthdate']) : null,
-      location: json['location'],
-      description: json['description'],
-      nativeLanguage: json['native_language'],
-      learningLanguages: Map<String, int>.from(json['learning_languages'] ?? {}),
+      location: json['location'] ?? '',
+      description: json['description'] ?? '',
+      nativeLanguage: json['native_language'] ?? '',
+      learningLanguages: Map<String, int>.fromEntries(
+        (json['learning_languages'] as List<dynamic>?)
+            ?.map((e) {
+          final parts = (e as String).split(':');
+          return MapEntry(parts[0], int.tryParse(parts[1]) ?? 0);
+        }) ?? [],
+      ),
       followers: json['followers'] ?? 0,
       following: json['following'] ?? 0,
       streak: json['streak'] ?? 0,
@@ -117,15 +111,12 @@ class Profile {
       bookmarks: json['bookmarks'] ?? 0,
       appreciations: json['appreciations'] ?? 0,
       badges: Set<String>.from(json['badges'] ?? []),
-      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
+      lastSeen: json['last_seen'] != null ? DateTime.parse(json['last_seen']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'user_id': userId,
       'name': name,
       'picture_url': pictureUrl,
       'birthdate': birthdate?.toUtc().toIso8601String(),
@@ -144,8 +135,7 @@ class Profile {
       'bookmarks': bookmarks,
       'appreciations': appreciations,
       'badges': badges.toList(),
-      'created_at': createdAt?.toIso8601String(),
-      'updated_at': updatedAt?.toIso8601String(),
+      'last_seen': lastSeen?.toIso8601String(),
     };
   }
 }

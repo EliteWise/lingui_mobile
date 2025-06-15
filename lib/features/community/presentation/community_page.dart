@@ -1,10 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingui_mobile/common_widgets/gradient_appbar.dart';
+import 'package:lingui_mobile/features/auth/application/states/auth_provider.dart';
 import 'package:lingui_mobile/features/community/application/states/community_provider.dart';
+import 'package:lingui_mobile/features/community/data/profile.dart';
 import 'package:lingui_mobile/features/community/presentation/states/discussion_notifier.dart';
+import 'package:lingui_mobile/utils/calculations.dart';
 
 import 'widgets/community_profile.dart';
 
@@ -17,11 +18,12 @@ class CommunityPage extends ConsumerStatefulWidget {
 
 class _CommunityPageState extends ConsumerState<CommunityPage> {
 
-  late List<Map<String, dynamic>> profiles;
+  late List<Profile> profiles;
 
   @override
   Widget build(BuildContext context) {
-    final community = ref.read(communityProvider);
+    final community = ref.watch(communityProvider);
+    final user = ref.watch(userProvider);
 
     return Scaffold(
       appBar: GradientAppBar(
@@ -40,10 +42,8 @@ class _CommunityPageState extends ConsumerState<CommunityPage> {
       body: community.when(
           data: (profiles) {
             return ListView.builder(
-              itemCount: 10,
+              itemCount: profiles.length,
               itemBuilder: (context, index) {
-                final community = ref.read(communityServiceProvider);
-                community.fetchCommunity();
                 final profile = profiles[index];
                 return Column(
                   children: [
@@ -51,16 +51,16 @@ class _CommunityPageState extends ConsumerState<CommunityPage> {
                     RepaintBoundary(
                       key: ValueKey(profile),
                       child: CommunityProfile(
-                        imageUrl: profile.pictureUrl,
+                        imageUrl: (profile.pictureUrl != null && profile.pictureUrl!.isNotEmpty) ? profile.pictureUrl! : 'https://avatar.iran.liara.run/public?username=JohnDoe',
                         name: profile.name,
-                        age: profile.birthdate,
-                        nativeLanguage: profile.nativeLanguage,
-                        learningLanguage: profile.learningLanguages.entries.first.key,
-                        description: profile.description,
+                        age: profile.birthdate != null ? calculateAge(profile.birthdate!) : 0,
+                        nativeLanguage: profile.nativeLanguage ?? '',
+                        learningLanguage: profile.learningLanguages.isNotEmpty ? profile.learningLanguages.entries.first.key : '',
+                        description: profile.description ?? '',
                         tags: profile.badges.toList() ?? [],
-                        isActive: profile.isActiveBadge,
-                        isNewUser: null,
-                        isConnected: null,
+                        isActive: profile.isActiveBadge ?? false,
+                        isNewUser: DateTime.now().difference(DateTime.parse(user.value!.registration)) < const Duration(days: 3),
+                        isConnected: profile.lastSeen != null ? DateTime.now().difference(profile.lastSeen!).inMinutes < 5 : false,
                       ),
                     )
                   ],
