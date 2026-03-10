@@ -1,5 +1,6 @@
 import 'package:lingui_mobile/common_services/request_service.dart';
 import 'package:lingui_mobile/features/community/data/profile.dart';
+import 'package:lingui_mobile/features/community/data/profile_update.dart';
 import 'package:lingui_mobile/utils/api_routes.dart';
 
 class CommunityService {
@@ -20,13 +21,19 @@ class CommunityService {
     try {
       final response = await dio.getUri(uri, null, method: "fetchCommunity");
       final List<dynamic> data = response;
-      print(data);
-      final profiles = data.map((profiles) => Profile.fromJson(profiles)).toList();
-      print("Profiles parsed: $profiles");
-      return profiles;
+      return data.map((profiles) => Profile.fromJson(profiles)).toList();
     } catch (e) {
       print('Error fetching community: $e');
       return [];
     }
+  }
+
+  Future<Profile> fetchProfile(String id) async {
+    final response = await dio.get(ApiRoutes.getProfile(id), null, method: "fetchProfile");
+    return Profile.fromJson(response);
+  }
+
+  Future<void> updateProfile(String profileId, ProfileUpdate profile) async {
+    await dio.patch(ApiRoutes.updateProfile(profileId), profile.toJson(), null, method: "updateProfile");
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import '../../../common_services/request_service.dart';
 import '../data/discussion.dart';
+import 'drift_service.dart';
 
 class RoomService {
 

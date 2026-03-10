@@ -138,4 +138,41 @@ class Profile {
       'last_seen': lastSeen?.toIso8601String(),
     };
   }
+
+  String get displayPictureUrl => (pictureUrl != null && pictureUrl!.trim().isNotEmpty) ? pictureUrl! : 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+
+  String get displayDescription => description ?? '';
+
+  String get displayLocation => location ?? 'Unknown';
+
+  int get displayAge {
+    if (birthdate == null) return 0;
+    final today = DateTime.now();
+    int age = today.year - birthdate!.year;
+    if (today.month < birthdate!.month || (today.month == birthdate!.month && today.day < birthdate!.day)) {
+      age--;
+    }
+    return age;
+  }
+
+  Map<String, int> get displayLearningLanguages => learningLanguages ?? {};
+
+  Set<String> get displayBadges => badges.isEmpty ? {'Friendly'} : badges;
+
+  String get displayNativeLanguage => nativeLanguage;
+
+  String get formattedLastSeen {
+    if (lastSeen == null) return 'Unknown';
+    final diff = DateTime.now().difference(lastSeen!);
+    if (diff.inMinutes < 1) return 'just now';
+    if (diff.inMinutes < 60) return '${diff.inMinutes} min ago';
+    if (diff.inHours < 24) return '${diff.inHours} h ago';
+    return '${diff.inDays} d ago';
+  }
+
+  bool get isConnected {
+    if (lastSeen == null) return false;
+    return DateTime.now().difference(lastSeen!).inMinutes < 5;
+  }
+
 }

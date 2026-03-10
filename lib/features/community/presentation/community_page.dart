@@ -50,18 +50,7 @@ class _CommunityPageState extends ConsumerState<CommunityPage> {
                     const SizedBox(height: 12),
                     RepaintBoundary(
                       key: ValueKey(profile),
-                      child: CommunityProfile(
-                        imageUrl: (profile.pictureUrl != null && profile.pictureUrl!.isNotEmpty) ? profile.pictureUrl! : 'https://avatar.iran.liara.run/public?username=JohnDoe',
-                        name: profile.name,
-                        age: profile.birthdate != null ? calculateAge(profile.birthdate!) : 0,
-                        nativeLanguage: profile.nativeLanguage ?? '',
-                        learningLanguage: profile.learningLanguages.isNotEmpty ? profile.learningLanguages.entries.first.key : '',
-                        description: profile.description ?? '',
-                        tags: profile.badges.toList() ?? [],
-                        isActive: profile.isActiveBadge ?? false,
-                        isNewUser: DateTime.now().difference(DateTime.parse(user.value!.registration)) < const Duration(days: 3),
-                        isConnected: profile.lastSeen != null ? DateTime.now().difference(profile.lastSeen!).inMinutes < 5 : false,
-                      ),
+                      child: CommunityProfile(profile: profile),
                     )
                   ],
                 );

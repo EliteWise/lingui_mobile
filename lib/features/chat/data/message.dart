@@ -1,59 +1,12 @@
+import 'package:drift/drift.dart';
 
-import 'package:isar/isar.dart';
-
-part 'message.g.dart';
-
-@collection
-class Message {
-  Id id = Isar.autoIncrement;
-
-  @Index(type: IndexType.value)
-  String senderId;
-
-  @Index(type: IndexType.value)
-  String receiverId;
-
-  String content;
-  DateTime date;
-  bool isRead;
-  String type; // 'text', 'image', 'video'
-  List<String>? attachments; // URL
-
-  Message({
-    required this.senderId,
-    required this.receiverId,
-    required this.content,
-    required this.date,
-    this.isRead = false,
-    this.type = 'text',
-    this.attachments,
-  });
-
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
-      senderId: json['senderId'],
-      receiverId: json['receiverId'],
-      content: json['content'],
-      date: DateTime.parse(json['date']),
-      isRead: json['isRead'] ?? false,
-      type: json['type'] ?? 'text',
-      attachments: json['attachments'] != null
-          ? List<String>.from(json['attachments'])
-          : null,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = {
-      'senderId': senderId,
-      'receiverId': receiverId,
-      'content': content,
-      'date': date.toIso8601String(),
-      'isRead': isRead,
-      'type': type,
-      'attachments': attachments,
-    };
-    return data;
-  }
-
+class Messages extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get senderId => text()();
+  TextColumn get receiverId => text()();
+  TextColumn get content => text()();
+  DateTimeColumn get date => dateTime()();
+  BoolColumn get isRead => boolean().withDefault(const Constant(false))();
+  TextColumn get type => text().withDefault(const Constant('text'))();
+  TextColumn? get attachments => text().nullable()(); // JSON encoded List<String>
 }

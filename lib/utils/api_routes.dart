@@ -8,7 +8,7 @@ class ApiRoutes {
 
   // Profile
   static String getProfile(String id) => '/profile/$id';
-  static const String updateProfile = '/profile/update';
+  static String updateProfile(String id) => '/profile/update/$id';
   static const String addLanguages = '/profile/languages';
   static const String addProfileInfo = '/profile/info';
 

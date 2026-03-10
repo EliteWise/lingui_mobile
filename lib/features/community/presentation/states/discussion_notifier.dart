@@ -1,20 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lingui_mobile/features/chat/data/discussion.dart';
+import 'package:lingui_mobile/features/chat/application/drift_service.dart';
 import 'package:lingui_mobile/features/community/data/profile.dart';
 
 import '../../application/states/community_provider.dart';
 
-class DiscussionNotifier extends StateNotifier<List<Discussion>> {
-  DiscussionNotifier() : super([]);
+class DiscussionNotifier extends Notifier<List<Discussion>> {
+  @override
+  List<Discussion> build() => [];
 
   void addDiscussion(Discussion newDiscussion) {
     state = [...state, newDiscussion];
   }
 }
 
-// Expose discussions
-final discussionProvider = StateNotifierProvider<DiscussionNotifier, List<Discussion>>(
-    (ref) => DiscussionNotifier()
+final discussionProvider = NotifierProvider<DiscussionNotifier, List<Discussion>>(
+  DiscussionNotifier.new,
 );
 
 final communityProvider = FutureProvider<List<Profile>>((ref) async {

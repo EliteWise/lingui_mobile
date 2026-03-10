@@ -34,6 +34,15 @@ class RequestService {
     }
   }
 
+  Future<dynamic> patch(String path, Object? data, Map<String, String>? headers, {String method = 'PATCH'}) async {
+    try {
+      Response response = await dio.patch(path, data: data, options: Options(headers: headers));
+      return response.data;
+    } catch (e) {
+      _handleError(e, method);
+    }
+  }
+
   Future<dynamic> get(String path, Map<String, String>? headers, {String method = 'GET'}) async {
     try {
       Response response = await dio.get(path, options: Options(headers: headers));

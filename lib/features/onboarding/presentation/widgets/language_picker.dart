@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:custom_language_picker/custom_language_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../states/language_provider.dart';
+
 class LanguagePicker extends ConsumerWidget {
   final String? titleText;
-  final StateProvider<Language?> provider;
+  final NotifierProvider<LanguageNotifier, Language?> provider;
   final IconData icon;
 
   const LanguagePicker({

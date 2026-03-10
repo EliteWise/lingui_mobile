@@ -15,6 +15,16 @@ class AppwriteAuthService {
     }
   }
 
+  Future<String?> get currentUserId async {
+    try {
+      final account = await _account.get();
+      return account.$id;
+    } catch (e) {
+      print("Current user id error: $e");
+      return null;
+    }
+  }
+
   Future<bool> login(String email, String password) async {
     try {
       print("Login in progress");

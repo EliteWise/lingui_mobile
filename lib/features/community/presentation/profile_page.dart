@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lingui_mobile/features/chat/application/drift_service.dart';
 import 'package:lingui_mobile/features/chat/application/states/chat_provider.dart';
+import 'package:lingui_mobile/features/community/application/states/community_provider.dart';
 import 'package:lingui_mobile/features/community/presentation/states/discussion_notifier.dart';
 import 'package:lingui_mobile/features/community/presentation/widgets/language_card.dart';
+import 'package:lingui_mobile/features/settings/presentation/settings_page.dart';
 
 import '../../chat/data/discussion.dart';
 import '../../chat/application/room_service.dart';
 import '../../../utils/utils.dart';
 import '../../chat/presentation/chat_page.dart';
 import '../data/profile.dart';
+import 'package:drift/drift.dart' as drift;
 
 class ProfilePage extends ConsumerStatefulWidget {
 
@@ -75,22 +79,22 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
   void enterChat() async {
     try {
 
-      var newDiscussion = Discussion(
+      var newDiscussion = DiscussionsCompanion.insert(
         title: 'Discussion',
-        participants: ["Participant"],
+        participants: '["Participant"]',
         lastMessage: '?',
         lastMessageTime: DateTime.now(),
-        isRead: false,
-        type: 'individual',
+        isRead: const drift.Value(false),
+        type: const drift.Value('individual'),
       );
 
-      final roomId = await ref.read(roomProvider).createRoom(newDiscussion);
-      newDiscussion.id = roomId;
+      final roomId = await ref.read(roomProvider).createRoom(newDiscussion as Discussion);
+      newDiscussion = newDiscussion.copyWith(id: roomId);
 
       final discussions = ref.watch(discussionProvider);
 
       if(!discussions.any((d) => d.id == newDiscussion.id)) {
-        ref.read(discussionProvider.notifier).addDiscussion(newDiscussion);
+        ref.read(discussionProvider.notifier).addDiscussion(newDiscussion as Discussion);
       }
 
       Navigator.push(
@@ -100,6 +104,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
     } catch (e) {
       print('Failed to create room: $e');
     }
+  }
+
+  void profileSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SettingsPage())
+    );
   }
 
   @override
@@ -122,6 +133,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                   enterChat();
                 },
                 icon: const Icon(Icons.chat, color: Color(0xFF795548)),
+            ),
+            IconButton(
+              onPressed: () async {
+                profileSettings();
+              },
+              icon: const Icon(Icons.settings, color: Color(0xFF795548)),
             )
           ],
         ),
@@ -161,8 +178,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> with SingleTickerProv
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          backgroundImage: (widget.profile.pictureUrl != null ?? false) ?
-                          NetworkImage(widget.profile.pictureUrl!) : const AssetImage('assets/images/globe-icon.png') as ImageProvider,
+                          backgroundImage: NetworkImage(widget.profile.displayPictureUrl),
                           radius: 50,
                         ),
                         const SizedBox(height: 8),
